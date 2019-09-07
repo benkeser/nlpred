@@ -18,7 +18,8 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 <!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.835868.svg)](https://doi.org/10.5281/zenodo.835868) -->
 
-> Small sample estimators of cross-validated prediction metrics
+> Small-sample optimized estimators of cross-validated prediction
+> metrics
 
 **Authors:** [David Benkeser](https://www.benkeserstatistics.com/)
 
@@ -36,32 +37,19 @@ estimating equations, and one-step estimation.
 
 ## Installation
 
-<!-- For standard use, we recommend installing the package from
+For standard use, we recommend installing the package from
 [CRAN](https://cran.r-project.org/) via
 
-
-```r
+``` r
 install.packages("nlpred")
-``` -->
+```
 
 You can install the current release of `nlpred` from GitHub via
 [`devtools`](https://www.rstudio.com/products/rpackages/devtools/) with:
 
-\`\`\`
-
 ``` r
 devtools::install_github("benkeser/nlpred")
 ```
-
-<!--
-To contribute, install the _development version_ from GitHub via
-[`devtools`](https://www.rstudio.com/products/rpackages/devtools/):
-
-
-```r
-devtools::install_github("benkeser/nlpred", ref = "develop")
-```
--->
 
 -----
 
@@ -70,7 +58,7 @@ devtools::install_github("benkeser/nlpred", ref = "develop")
 If you encounter any bugs or have any specific feature requests, please
 [file an issue](https://github.com/benkeser/nlpred/issues).
 
-## Example
+## Usage
 
 -----
 

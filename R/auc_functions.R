@@ -1,7 +1,6 @@
 utils::globalVariables(c(":="))
 
-#' Estimate the cross-validated area under the receiver operating characteristics 
-#' curve (AUC)
+#' Estimates of CVAUC
 #' 
 #' This function computes K-fold cross-validated estimates of the area under
 #' the receiver operating characteristics (ROC) curve (hereafter, AUC). This
@@ -92,8 +91,8 @@ utils::globalVariables(c(":="))
 #' # get cv auc estimates for random forest
 #' # using nested cross-validation for nuisance parameter estimation
 #' # fit <- cv_auc(Y = Y, X = X, K = 5, 
-#'                 learner = "randomforest_wrapper", 
-#'                 nested_cv = TRUE)
+#' #               learner = "randomforest_wrapper", 
+#' #               nested_cv = TRUE)
 
 cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper", 
                   nested_cv = TRUE,

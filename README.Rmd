@@ -52,13 +52,15 @@ devtools::install_github("benkeser/nlpred")
 ```
 ---
 
+## Usage
+
+
+---
+
 ## Issues
 
 If you encounter any bugs or have any specific feature requests, please [file an
 issue](https://github.com/benkeser/nlpred/issues).
-
-
-## Usage
 
 ---
 
@@ -69,11 +71,10 @@ Interested contributors can consult our [`contribution guidelines`](https://gith
 ---
 
 ## Citation 
---- -->
 
 ## License
 
-&copy; 2019 [David C. Benkeser](http://www.benkeserstatistics.com)
+&copy; 2019 [David Benkeser](http://www.benkeserstatistics.com)
 
 The contents of this repository are distributed under the MIT license. See
 below for details:

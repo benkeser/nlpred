@@ -2,8 +2,7 @@
 % Please edit documentation in R/auc_functions.R
 \name{cv_auc}
 \alias{cv_auc}
-\title{Estimate the cross-validated area under the receiver operating characteristics 
-curve (AUC)}
+\title{Estimates of CVAUC}
 \usage{
 cv_auc(Y, X, K = 10, learner = "glm_wrapper", nested_cv = TRUE,
   nested_K = K - 1, parallel = FALSE, max_cvtmle_iter = 10,
@@ -106,6 +105,6 @@ cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 # get cv auc estimates for random forest
 # using nested cross-validation for nuisance parameter estimation
 # fit <- cv_auc(Y = Y, X = X, K = 5, 
-                learner = "randomforest_wrapper", 
-                nested_cv = TRUE)
+#               learner = "randomforest_wrapper", 
+#               nested_cv = TRUE)
 }

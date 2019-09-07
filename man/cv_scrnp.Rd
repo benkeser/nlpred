@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppv_functions.R
 \name{cv_scrnp}
 \alias{cv_scrnp}
-\title{Compute CVTML estimates of cross-validated AUC}
+\title{Estimates of CV SCNP}
 \usage{
 cv_scrnp(Y, X, K = 10, sens = 0.95, learner = "glm_wrapper",
   nested_cv = TRUE, nested_K = K - 1, parallel = FALSE,
@@ -20,7 +20,7 @@ cv_scrnp(Y, X, K = 10, sens = 0.95, learner = "glm_wrapper",
 (see description).}
 
 \item{learner}{A wrapper that implements the desired method for building a 
-prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING}
+prediction algorithm.}
 
 \item{nested_cv}{A boolean indicating whether nested cross validation should
 be used to estimate the distribution of the prediction function. Default (\code{TRUE})
@@ -50,16 +50,70 @@ that has a format compatible with \code{cvauc}.}
 \item{...}{Other arguments, not currently used}
 }
 \value{
-A list TO DO: more documentation here.
+An object of class \code{"scrnp"}. \describe{
+\item{\code{est_cvtmle}}{cross-validated targeted minimum loss-based estimator of K-fold CV AUC}
+\item{\code{iter_cvtmle}}{iterations needed to achieve convergence of CVTMLE algorithm}
+\item{\code{cvtmle_trace}}{the value of the CVTMLE at each iteration of the targeting algorithm}
+\item{\code{se_cvtmle}}{estimated standard error based on targeted nuisance parameters}
+\item{\code{est_init}}{plug-in estimate of CV AUC where nuisance parameters are estimated
+in the training sample}
+\item{\code{est_empirical}}{the standard K-fold CV AUC estimator}
+\item{\code{se_empirical}}{estimated standard error for the standard estimator}
+\item{\code{est_onestep}}{cross-validated one-step estimate of K-fold CV AUC}
+\item{\code{se_onestep}}{estimated standard error for the one-step estimator}
+\item{\code{est_esteq}}{cross-validated estimating equations estimate of K-fold CV AUC
+(here, equivalent to one-step, since the estimating equation is linear in SCRNP)}
+\item{\code{se_esteq}}{estimated standard error for the estimating equations estimator 
+(same as one-step)}
+\item{\code{folds}}{list of observation indexes in each validation fold}
+\item{\code{ic_cvtmle}}{influence function evaluated at the targeted nuisance parameter
+estimates}
+\item{\code{ic_onestep}}{influence function evaluated at the training-fold-estimated
+nuisance parameters}
+\item{\code{ic_esteq}}{influence function evaluated at the training-fold-estimated 
+nuisance parameters}
+\item{\code{ic_empirical}}{influence function evaluated at the validation-fold 
+estimated nuisance parameters}
+\item{\code{prediction_list}}{a list of output from the cross-validated model training; 
+see the individual wrapper function documentation for further details}
+}
 }
 \description{
-TO DO: Add description
+This function computes K-fold cross-validated estimates of estimates of 
+cross-validated sensitivity-constrained rate of negative prediction (SCRNP). This
+quantity can be interpreted as the rate of negative classification for a fixed 
+constraint on the sensitivity of a prediction algorithm. Thus, if an algorithm
+has a high SCRNP, it will also have a high positive predictive value.
+}
+\details{
+To estimate the SCRNP using K-fold cross-validation is problematic. If 
+data are partitioned into K distinct groups, depending on the sample size 
+and choice of K, the validation sample may be quite small. In order to estimate 
+SCRNP, we require estimation of a quantile of the predictor's distribution. More extreme
+quantiles (which correspond to high sensitivity constraints) are difficult to estimate
+using few observations. Here, we estimate relevant nuisance parameters in the training sample and use
+the validation sample to perform some form of bias correction -- either through
+cross-validated targeted minimum loss-based estimation, estimating equations, 
+or one-step estimation. When aggressive learning algorithms are applied, it is
+necessary to use an additional layer of cross-validation in the training sample
+to estimate the nuisance parameters. This is controlled via the \code{nested_cv}
+option below.
 }
 \examples{
+# simulate data
 n <- 200
 p <- 10
 X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
 Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
-fit <- cv_scrnp(Y = Y, X = X, K = 5, nested_cv = FALSE, learner = "glm_wrapper")
 
+# estimate cv scrnp of logistic regression
+scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
+                       nested_cv = FALSE, 
+                       learner = "glm_wrapper")
+
+# estimate cv scrnp of random forest with nested 
+# cross-validation for nuisance parameter estimation
+# scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
+#                        nested_cv = TRUE, 
+#                        learner = "randomforest_wrapper")
 }

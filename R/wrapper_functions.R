@@ -29,17 +29,18 @@
 #' # load super learner package
 #' library(SuperLearner)
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit super learner 
-#' sl_wrap <- superlearner_wrapper(train = train, test = test, SL.library = c("SL.mean","SL.glm"))
+#' sl_wrap <- superlearner_wrapper(train = train, 
+#'                                 test = test, 
+#'                                 SL.library = c("SL.mean","SL.glm"))
 
 superlearner_wrapper <- function(train, test,
                                  SL.library = c("SL.mean"), 
@@ -72,7 +73,8 @@ superlearner_wrapper <- function(train, test,
 #' computations); \code{train_y} = a copy of \code{train$Y}; \code{test_y} = a copy
 #' of \code{test$Y}. 
 #' 
-#' This particular wrapper implements \link[glmnet]{glmnet}. We refer readers to the original package's documentation for more
+#' This particular wrapper implements \link[glmnet]{glmnet}. We refer readers to the 
+#' original package's documentation for more
 #' details. 
 #' 
 #' @param train A list with named objects \code{Y} and \code{X} (see description).
@@ -90,14 +92,13 @@ superlearner_wrapper <- function(train, test,
 #' # load super learner package
 #' library(glmnet)
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50), x2 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50), x2 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit super learner 
 #' glmnet_wrap <- glmnet_wrapper(train = train, test = test)
@@ -154,14 +155,13 @@ glmnet_wrapper <- function(train, test,
 #' @importFrom stats predict
 #' @examples
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit randomforest 
 #' rf_wrap <- randomforest_wrapper(train = train, test = test)
@@ -216,14 +216,13 @@ randomforest_wrapper <- function(train, test,
 #' @importFrom stats predict
 #' @examples
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit ranger
 #' rf_wrap <- ranger_wrapper(train = train, test = test)
@@ -279,14 +278,13 @@ ranger_wrapper <- function(train, test,
 #' @importFrom stats predict
 #' @examples
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit glm
 #' glm_wrap <- glm_wrapper(train = train, test = test)
@@ -333,14 +331,13 @@ glm_wrapper <- function(train, test){
 #' @importFrom stats glm predict step formula
 #' @examples
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit stepwise glm
 #' step_wrap <- stepglm_wrapper(train = train, test = test)
@@ -390,14 +387,13 @@ stepglm_wrapper <- function(train, test){
 #' @export
 #' @examples
 #' # simulate data
-#' Q0 <- function(x){ plogis(x) }
 #' # make list of training data
 #' train_X <- data.frame(x1 = runif(50))
-#' train_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' train_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' train <- list(Y = train_Y, X = train_X)
 #' # make list of test data
 #' test_X <- data.frame(x1 = runif(50))
-#' test_Y <- rbinom(50, 1, Q0(train_X$x1))
+#' test_Y <- rbinom(50, 1, plogis(train_X$x1))
 #' test <- list(Y = test_Y, X = test_X)
 #' # fit xgboost
 #' xgb_wrap <- xgboost_wrapper(train = train, test = test)

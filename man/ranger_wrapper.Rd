@@ -58,14 +58,13 @@ details.
 }
 \examples{
 # simulate data
-Q0 <- function(x){ plogis(x) }
 # make list of training data
 train_X <- data.frame(x1 = runif(50))
-train_Y <- rbinom(50, 1, Q0(train_X$x1))
+train_Y <- rbinom(50, 1, plogis(train_X$x1))
 train <- list(Y = train_Y, X = train_X)
 # make list of test data
 test_X <- data.frame(x1 = runif(50))
-test_Y <- rbinom(50, 1, Q0(train_X$x1))
+test_Y <- rbinom(50, 1, plogis(train_X$x1))
 test <- list(Y = test_Y, X = test_X)
 # fit ranger
 rf_wrap <- ranger_wrapper(train = train, test = test)
