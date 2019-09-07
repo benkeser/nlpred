@@ -71,7 +71,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
           )
   # train learners in all necessary combination of folds
   if(is.null(prediction_list)){
-    prediction_list <- .getPredictions(
+    prediction_list <- .get_predictions(
       learner = learner, Y = Y, X = X, K = K, nested_K = nested_K, 
       folds=folds, parallel = FALSE, nested_cv = nested_cv
     )
@@ -79,10 +79,10 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 
   # get quantile estimates
   if(!nested_cv){
-    quantile_list <- lapply(prediction_list[seq_len(K)], .getQuantile, p = 1 - sens,
+    quantile_list <- lapply(prediction_list[seq_len(K)], .get_quantile, p = 1 - sens,
                             quantile_type = quantile_type)
   }else{
-    quantile_list <- sapply(1:K, .getNestedCVQuantile, quantile_type = quantile_type,
+    quantile_list <- sapply(1:K, .get_nested_cv_quantile, quantile_type = quantile_type,
                              prediction_list = prediction_list, folds = folds,
                              p = 1 - sens, simplify = FALSE) 
   }
@@ -90,24 +90,24 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
   # get density estimate 
   if(!nested_cv){
     density_list <- mapply(x = prediction_list[1:K], c0 = quantile_list, 
-                           FUN = .getDensity, SIMPLIFY = FALSE)
+                           FUN = .get_density, SIMPLIFY = FALSE)
   }else{
     density_list <- mapply(x = split(seq_len(K), seq_len(K)), c0 = quantile_list, 
-                           FUN = .getDensity, SIMPLIFY = FALSE,
+                           FUN = .get_density, SIMPLIFY = FALSE,
                            MoreArgs = list(prediction_list = prediction_list,
                                            folds = folds, nested_cv = nested_cv))
   }
 
   # make targeting data
   if(!nested_cv){
-    target_and_pred_data <- .makeTargetingData(prediction_list = prediction_list, 
+    target_and_pred_data <- .make_targeting_data(prediction_list = prediction_list, 
                                       quantile_list = quantile_list, 
                                       density_list = density_list, 
                                       folds = folds, gn = mean(Y))
     target_data <- target_and_pred_data$out
     pred_data <- target_and_pred_data$out_pred
   }else{
-    target_and_pred_data <- sapply(seq_len(K), .makeTargetingData, 
+    target_and_pred_data <- sapply(seq_len(K), .make_targeting_data, 
                                         prediction_list = prediction_list, 
                                       quantile_list = quantile_list, 
                                       density_list = density_list, folds = folds,
@@ -158,7 +158,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
   se_onestep <- sqrt(var(target_data$DY_os + target_data$Dpsi_os) / n)
 
   # get CV estimator
-  cv_empirical_estimates <- .getCVEstimator(prediction_list[1:K], sens = sens, 
+  cv_empirical_estimates <- .get_cv_estim(prediction_list[1:K], sens = sens, 
                                             gn = mean(Y), quantile_type = quantile_type)
 
   # sample split estimate
@@ -209,7 +209,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
   Psi <- gn * F1nc0 + (1-gn) * F0nc0
   DY <- FYnc0 - Psi
   # get density estimate
-  dens <- tryCatch({.getDensity(x = x, c0 = c0, 
+  dens <- tryCatch({.get_density(x = x, c0 = c0, 
                       bounded_kernel = FALSE,
                       x_name = "test_pred", 
                       y_name = "test_y",
@@ -230,7 +230,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param gn The marginal probability that \code{Y = 1}.
 #' @param quantile_type The type of quantile estimate to use.
 #' @param ... Other options (not currently used)
-.getCVEstimator <- function(prediction_list, sens, gn, quantile_type = 8, ...){
+.get_cv_estim <- function(prediction_list, sens, gn, quantile_type = 8, ...){
   allFolds <- lapply(prediction_list, .getOneFold, sens = sens, gn = gn,
                      quantile_type = quantile_type)
   return(allFolds)
@@ -242,7 +242,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param p The quantile to get.
 #' @param quantile_type The type of quantile estimate to use.
 #' @importFrom stats quantile 
-.getQuantile <- function(x, p, quantile_type = 8){
+.get_quantile <- function(x, p, quantile_type = 8){
   stats::quantile(x$train_pred[x$train_y == 1], p = p, type = quantile_type)
 }
 
@@ -254,7 +254,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param folds Cross-validation fold assignments. 
 #' @param quantile_type The type of quantile estimate to use.
 #' @importFrom stats quantile 
-.getNestedCVQuantile <- function(x, p, prediction_list, folds,
+.get_nested_cv_quantile <- function(x, p, prediction_list, folds,
                                  quantile_type = 8){
   # find all V-1 fold CV fits with this x in them. These will be the inner
   # CV fits that are needed. The first entry in this vector will correspond
@@ -299,7 +299,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @importFrom np npudensbw npudens
 #' @importFrom stats predict
 #' @importFrom bde bde
-.getDensity <- function(x, c0, bounded_kernel = FALSE,
+.get_density <- function(x, c0, bounded_kernel = FALSE,
                         x_name = "train_pred", 
                         y_name = "train_y",
                         nested_cv = FALSE, prediction_list = NULL, 
@@ -403,7 +403,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param folds Cross-validation fold assignments.
 #' @param nested_cv A boolean indicating whether nested CV was used in estimation.
 #' @param gn An estimate of the marginal probability that \code{Y = 1}. 
-.makeTargetingData <- function(x, prediction_list, quantile_list, 
+.make_targeting_data <- function(x, prediction_list, quantile_list, 
                                density_list, folds,
                                nested_cv = FALSE, gn){
   K <- length(folds)
