@@ -24,7 +24,6 @@ test_that("wrappers work", {
 		"glm",
 		"stepglm",
 		"xgboost",
-		"dbarts",
 		"superlearner",
 		"glmnet"
 	)
