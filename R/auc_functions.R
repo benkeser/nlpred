@@ -124,7 +124,7 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
   if(is.null(prediction_list)){
     prediction_list <- .get_predictions(
       learner = learner, Y = Y, X = X, K = K, nested_K = nested_K, 
-      folds=folds, parallel = FALSE, nested_cv = nested_cv
+      folds = folds, parallel = FALSE, nested_cv = nested_cv
     )
   }
 

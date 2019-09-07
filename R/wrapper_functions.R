@@ -297,11 +297,10 @@ glm_wrapper <- function(train, test){
       test$X <- data.frame(test$X)
     }
     glm_fit <- stats::glm(train$Y ~ ., data = train$X, family = stats::binomial())
-    Psi_nBn_0 <- function(x){
-      stats::predict(glm_fit, newdata = x, type = "response")
-    }
-    train_pred <- Psi_nBn_0(train$X)
-    test_pred <- Psi_nBn_0(test$X)
+
+    train_pred <- stats::predict(glm_fit, newdata = train$X, type = "response")
+    test_pred <- stats::predict(glm_fit, newdata = test$X, type = "response")
+    
     return(list(test_pred = test_pred, train_pred = train_pred,
                 model = NULL, train_y = train$Y, test_y = test$Y))
 }
