@@ -85,7 +85,6 @@ superlearner_wrapper <- function(train, test,
 #' @param ... Other options (passed to \code{SuperLearner}) 
 #' @return A list with named objects (see description). 
 #' @export
-#' @importFrom glmnet cv.glmnet predict.cv.glmnet predict.glmnet
 #' @importFrom stats model.matrix
 #' @examples
 #' # load super learner package
@@ -152,7 +151,6 @@ glmnet_wrapper <- function(train, test,
 #' @param ... Other options (passed to \code{randomForest}) 
 #' @return A list with named objects (see description). 
 #' @export
-#' @importFrom randomForest randomForest 
 #' @importFrom stats predict
 #' @examples
 #' # simulate data
@@ -215,7 +213,6 @@ randomforest_wrapper <- function(train, test,
 #' @param ... Other options (passed to \code{ranger}) 
 #' @return A list with named objects (see description). 
 #' @export
-#' @importFrom ranger ranger 
 #' @importFrom stats predict
 #' @examples
 #' # simulate data
@@ -391,8 +388,6 @@ stepglm_wrapper <- function(train, test){
 #' @param save_period See \link[xgboost]{xgboost}
 #' @return A list with named objects (see description). 
 #' @export
-#' @importFrom stats glm predict step model.matrix
-#' @importFrom xgboost xgboost xgb.DMatrix
 #' @examples
 #' # simulate data
 #' Q0 <- function(x){ plogis(x) }
