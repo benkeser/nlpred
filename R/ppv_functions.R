@@ -552,7 +552,8 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param X A \code{data.frame} of variables for prediction.
 #' @param B The number of bootstrap samples. 
 #' @param learner A wrapper that implements the desired method for building a 
-#' prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING 
+#' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+#' for more information on formatting \code{learner}s.
 #' @param sens The sensitivity constraint to use. 
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 

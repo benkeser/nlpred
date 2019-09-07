@@ -27,7 +27,8 @@ utils::globalVariables(c(":="))
 #' @param X A \code{data.frame} or \code{matrix} of variables for prediction.
 #' @param K The number of cross-validation folds (default is \code{10}).
 #' @param learner A wrapper that implements the desired method for building a 
-#' prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING 
+#' prediction algorithm. See See \code{?glm_wrapper} or read the package vignette
+#' for more information on formatting \code{learner}s.
 #' @param nested_cv A boolean indicating whether nested cross validation should
 #' be used to estimate the distribution of the prediction function. Default (\code{TRUE})
 #' is best choice for aggressive \code{learner}'s, while \code{FALSE} is reasonable
@@ -1168,7 +1169,8 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' @param X A \code{data.frame} of variables for prediction.
 #' @param max_pairs The maximum number of pairs to leave out. 
 #' @param learner A wrapper that implements the desired method for building a 
-#' prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING 
+#' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+#' for more information on formatting \code{learner}s.
 #' @param parallel A boolean indicating whether prediction algorithms should be 
 #' trained in parallel. Default to \code{FALSE}. 
 #' @param ... Other options (not currently used)
@@ -1221,7 +1223,8 @@ lpo_auc <- function(Y, X, learner = "glm_wrapper",
 #' @param X A \code{data.frame} of variables for prediction.
 #' @param B The number of bootstrap samples. 
 #' @param learner A wrapper that implements the desired method for building a 
-#' prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING 
+#' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+#' for more information on formatting \code{learner}s.
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 
 #' @return A list with \code{$auc} as the bootstrap-corrected AUC estimate
