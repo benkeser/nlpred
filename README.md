@@ -9,13 +9,13 @@ Status](https://travis-ci.org/benkeser/nlpred.svg?branch=master)](https://travis
 Status](https://ci.appveyor.com/api/projects/status/github/benkeser/nlpred?branch=master&svg=true)](https://ci.appveyor.com/project/benkeser/nlpred)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/benkeser/nlpred/master.svg)](https://codecov.io/github/benkeser/nlpred?branch=master)
-<!-- [![CRAN](http://www.r-pkg.org/badges/version/nlpred)](http://www.r-pkg.org/pkg/nlpred) -->
-<!-- [![CRAN downloads](https://cranlogs.r-pkg.org/badges/nlpred)](https://CRAN.R-project.org/package=nlpred) -->
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![MIT
 license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+<!-- [![CRAN](http://www.r-pkg.org/badges/version/nlpred)](http://www.r-pkg.org/pkg/nlpred) -->
+<!-- [![CRAN downloads](https://cranlogs.r-pkg.org/badges/nlpred)](https://CRAN.R-project.org/package=nlpred) -->
 <!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.835868.svg)](https://doi.org/10.5281/zenodo.835868) -->
 
 > Small-sample optimized estimators of cross-validated prediction
@@ -88,10 +88,10 @@ Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
 logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.6967176 0.03520323 0.6277206 0.7657147
-#> onestep  0.6975034 0.03564613 0.6276383 0.7673685
-#> esteq    0.6878086 0.03564613 0.6179434 0.7576737
-#> standard 0.7016291 0.03710328 0.6289080 0.7743502
+#> cvtmle   0.7112994 0.03566441 0.6413985 0.7812004
+#> onestep  0.7127992 0.03621594 0.6418173 0.7837811
+#> esteq    0.7000396 0.03621594 0.6290577 0.7710216
+#> standard 0.7000213 0.03728206 0.6269498 0.7730928
 
 # get cv auc estimates for random forest using nested 
 # cross-validation for nuisance parameter estimation. nested
@@ -102,30 +102,30 @@ rf_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5,
                          nested_cv = TRUE)
 rf_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.7141555 0.03783280 0.6400045 0.7883064
-#> onestep  0.7165059 0.03850217 0.6410430 0.7919688
-#> esteq    0.7023838 0.03850217 0.6269210 0.7778467
-#> standard 0.7351003 0.03584855 0.6648384 0.8053621
+#> cvtmle   0.7317074 0.03628587 0.6605884 0.8028264
+#> onestep  0.7327262 0.03685109 0.6604994 0.8049530
+#> esteq    0.7249168 0.03685109 0.6526900 0.7971436
+#> standard 0.7351662 0.03603827 0.6645325 0.8057999
 
 # same examples for scrnp
 logistic_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_scrnp_ests
 #>                est         se        cil       ciu
-#> cvtmle   0.1348865 0.02860080 0.07882994 0.1909430
-#> onestep  0.1364033 0.02858968 0.08036861 0.1924381
-#> esteq    0.1364033 0.02858968 0.08036861 0.1924381
-#> standard 0.1508590 0.03365578 0.08489491 0.2168231
+#> cvtmle   0.1200194 0.03234325 0.05662778 0.1834110
+#> onestep  0.1106784 0.03230671 0.04735844 0.1739984
+#> esteq    0.1106784 0.03230671 0.04735844 0.1739984
+#> standard 0.1353408 0.05376489 0.02996354 0.2407180
 
 
 rf_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
                          learner = "randomforest_wrapper", 
                          nested_cv = TRUE)
 rf_cv_scrnp_ests
-#>                 est         se        cil       ciu
-#> cvtmle   0.09638631 0.03279161 0.03211594 0.1606567
-#> onestep  0.09737640 0.03278857 0.03311199 0.1616408
-#> esteq    0.09737640 0.03278857 0.03311199 0.1616408
-#> standard 0.13018271 0.02878232 0.07377039 0.1865950
+#>                est         se        cil       ciu
+#> cvtmle   0.1312718 0.04157305 0.04979013 0.2127535
+#> onestep  0.1538148 0.04112673 0.07320788 0.2344217
+#> esteq    0.1538148 0.04112673 0.07320788 0.2344217
+#> standard 0.2008037 0.03481675 0.13256413 0.2690433
 ```
 
 -----
