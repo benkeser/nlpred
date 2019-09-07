@@ -75,6 +75,9 @@ performance in small samples.
 library(nlpred)
 #> Loading required package: data.table
 
+# turn off messages from np package
+options(np.messages=FALSE)
+
 # simulate data
 n <- 200
 p <- 10
@@ -85,10 +88,10 @@ Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
 logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.7900437 0.03133407 0.7286300 0.8514573
-#> onestep  0.7904006 0.03187774 0.7279214 0.8528798
-#> esteq    0.7837634 0.03187774 0.7212842 0.8462427
-#> standard 0.7860652 0.03210325 0.7231440 0.8489864
+#> cvtmle   0.6670764 0.03640285 0.5957281 0.7384247
+#> onestep  0.6678666 0.03665385 0.5960263 0.7397068
+#> esteq    0.6615022 0.03665385 0.5896619 0.7333424
+#> standard 0.6914749 0.03709762 0.6187649 0.7641849
 
 # get cv auc estimates for random forest using nested 
 # cross-validation for nuisance parameter estimation. nested
@@ -99,350 +102,30 @@ rf_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5,
                          nested_cv = TRUE)
 rf_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.7346812 0.03619140 0.6637474 0.8056151
-#> onestep  0.7349126 0.03650895 0.6633564 0.8064689
-#> esteq    0.7320209 0.03650895 0.6604646 0.8035771
-#> standard 0.7370301 0.03468265 0.6690533 0.8050068
+#> cvtmle   0.6741849 0.03924245 0.5972711 0.7510987
+#> onestep  0.6756517 0.03964472 0.5979495 0.7533540
+#> esteq    0.6637178 0.03964472 0.5860156 0.7414200
+#> standard 0.6695957 0.03839784 0.5943373 0.7448541
 
 # same examples for scrnp
 logistic_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, learner = "glm_wrapper")
-#> 
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
 logistic_cv_scrnp_ests
-#>                 est         se         cil       ciu
-#> cvtmle   0.08467894 0.02983346 0.026206429 0.1431514
-#> onestep  0.06639411 0.03004345 0.007510036 0.1252782
-#> esteq    0.06639411 0.03004345 0.007510036 0.1252782
-#> standard 0.14294586 0.02782372 0.088412385 0.1974793
+#>                 est         se        cil       ciu
+#> cvtmle   0.07687818 0.02536082 0.02717188 0.1265845
+#> onestep  0.06618483 0.02550616 0.01619368 0.1161760
+#> esteq    0.06618483 0.02550616 0.01619368 0.1161760
+#> standard 0.10403497 0.02707249 0.05097387 0.1570961
 
 
 rf_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
                          learner = "randomforest_wrapper", 
                          nested_cv = TRUE)
-#> 
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
-
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-Multistart 1 of 1 /
-Multistart 1 of 1 |
-Multistart 1 of 1 |
-                   
 rf_cv_scrnp_ests
-#>                 est        se         cil       ciu
-#> cvtmle   0.08611932 0.0323499  0.02271469 0.1495240
-#> onestep  0.04881878 0.0327503 -0.01537063 0.1130082
-#> esteq    0.04881878 0.0327503 -0.01537063 0.1130082
-#> standard 0.06968534 0.0301356  0.01062064 0.1287500
+#>                 est         se        cil       ciu
+#> cvtmle   0.07019858 0.02231409 0.02646376 0.1139334
+#> onestep  0.05918384 0.02237751 0.01532473 0.1030429
+#> esteq    0.05918384 0.02237751 0.01532473 0.1030429
+#> standard 0.09046480 0.02339266 0.04461603 0.1363136
 ```
 
 -----

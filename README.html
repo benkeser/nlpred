@@ -603,7 +603,7 @@ body {
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <h1 id="rnlpred">R/<code>nlpred</code></h1>
-<p><a href="https://travis-ci.org/benkeser/nlpred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MSIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI4MSIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjIwIiBmaWxsPSIjZTA1ZDQ0Ii8+PHBhdGggZmlsbD0iI2UwNWQ0NCIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9IjgxIiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNTgiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5mYWlsaW5nPC90ZXh0Pjx0ZXh0IHg9IjU4IiB5PSIxNCI+ZmFpbGluZzwvdGV4dD48L2c+PC9zdmc+" alt="Travis-CI Build Status" /></a> <a href="https://ci.appveyor.com/project/benkeser/nlpred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NyIgaGVpZ2h0PSIyMCIgc3R5bGU9InNoYXBlLXJlbmRlcmluZzpnZW9tZXRyaWNQcmVjaXNpb247IGltYWdlLXJlbmRlcmluZzpvcHRpbWl6ZVF1YWxpdHk7IGZpbGwtcnVsZTpldmVub2RkOyBjbGlwLXJ1bGU6ZXZlbm9kZCI+DQogIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4NCiAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiLz4NCiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz4NCiAgPC9saW5lYXJHcmFkaWVudD4NCiAgPG1hc2sgaWQ9ImEiPg0KICAgIDxyZWN0IHdpZHRoPSI5NyIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz4NCiAgPC9tYXNrPg0KICA8ZyBtYXNrPSJ1cmwoI2EpIj4NCiAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDUzdjIwSDB6Ii8+DQogICAgPHBhdGggZmlsbD0iI2UwNWQ0NCIgZD0iTTUzIDBoNzV2MjBINTN6Ii8+DQogICAgPHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGg5N3YyMEgweiIvPg0KICA8L2c+DQogIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDQ1LDAsMCwwLjA0NSwwLDEuMDIyNzI3MikiPg0KICAgIDxwYXRoIGZpbGw9IiNjY2MiIGQ9Ik0yNDIgNDhjODYsMCAxNTUsNjkgMTU1LDE1NCAwLDg2IC02OSwxNTUgLTE1NSwxNTUgLTg1LDAgLTE1NCwtNjkgLTE1NCwtMTU1IDAsLTg1IDY5LC0xNTQgMTU0LC0xNTR6bTM4IDE4NGMtMTcsMjIgLTQ4LDI2IC02OSw5IC0yMSwtMTYgLTI0LC00NyAtNywtNjkgMTgsLTIxIDQ5LC0yNSA3MCwtOSAyMSwxNyAyNCw0OCA2LDY5em0tODIgMTAxbDU5IC01N2MtMjIsNSAtNDUsMSAtNjMsLTE0IC0yMSwtMTYgLTMwLC00MyAtMjcsLTY4bC01MyA1OGMwLDAgLTcsLTEzIC05LC0zN2w5MyAtNzNjMjgsLTIwIDY2LC0yMSA5MywwIDMwLDI0IDM2LDY4IDE0LDEwMWwtNjggOTdjLTEwLDAgLTMwLC0zIC0zOSwtN3oiLz4NCiAgPC9nPg0KICA8ZyBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+DQoNCiAgICA8dGV4dCB4PSIyMiIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPmJ1aWxkPC90ZXh0Pg0KICAgIDx0ZXh0IHg9IjIyIiB5PSIxNCI+YnVpbGQ8L3RleHQ+DQoNCiAgICA8dGV4dCB4PSI1OCIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPmZhaWxpbmc8L3RleHQ+DQogICAgPHRleHQgeD0iNTgiIHk9IjE0Ij5mYWlsaW5nPC90ZXh0Pg0KICA8L2c+DQo8L3N2Zz4=" alt="AppVeyor Build Status" /></a> <a href="https://codecov.io/github/benkeser/nlpred?branch=master"><img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTIyIiBoZWlnaHQ9IjIwIj48bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgyPSIwIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PC9saW5lYXJHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImEiPjxyZWN0IHdpZHRoPSIxMjIiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIi8+PC9jbGlwUGF0aD48ZyBjbGlwLXBhdGg9InVybCgjYSkiPjxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNjF2MjBIMHoiLz48cGF0aCBmaWxsPSIjOWY5ZjlmIiBkPSJNNjEgMGg2MXYyMEg2MXoiLz48cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDEyMnYyMEgweiIvPjwvZz48ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMTAiPiA8dGV4dCB4PSIzMTUiIHk9IjE1MCIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIHRleHRMZW5ndGg9IjUxMCI+Y292ZXJhZ2U8L3RleHQ+PHRleHQgeD0iMzE1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI1MTAiPmNvdmVyYWdlPC90ZXh0Pjx0ZXh0IHg9IjkwNSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNTEwIj51bmtub3duPC90ZXh0Pjx0ZXh0IHg9IjkwNSIgeT0iMTQwIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNTEwIj51bmtub3duPC90ZXh0PjwvZz4gPC9zdmc+" alt="Coverage Status" /></a></p>
+<p><a href="https://travis-ci.org/benkeser/nlpred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MSIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI4MSIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjIwIiBmaWxsPSIjZTA1ZDQ0Ii8+PHBhdGggZmlsbD0iI2UwNWQ0NCIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9IjgxIiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNTgiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5mYWlsaW5nPC90ZXh0Pjx0ZXh0IHg9IjU4IiB5PSIxNCI+ZmFpbGluZzwvdGV4dD48L2c+PC9zdmc+" alt="Travis-CI Build Status" /></a> <a href="https://ci.appveyor.com/project/benkeser/nlpred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDgiIGhlaWdodD0iMjAiIHN0eWxlPSJzaGFwZS1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uOyBpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyBmaWxsLXJ1bGU6ZXZlbm9kZDsgY2xpcC1ydWxlOmV2ZW5vZGQiPg0KICA8bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgyPSIwIiB5Mj0iMTAwJSI+DQogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+DQogICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+DQogIDwvbGluZWFyR3JhZGllbnQ+DQogIDxtYXNrIGlkPSJhIj4NCiAgICA8cmVjdCB3aWR0aD0iMTA4IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPg0KICA8L21hc2s+DQogIDxnIG1hc2s9InVybCgjYSkiPg0KICAgIDxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNTN2MjBIMHoiLz4NCiAgICA8cGF0aCBmaWxsPSIjOWY5ZjlmIiBkPSJNNTMgMGg4NnYyMEg1M3oiLz4NCiAgICA8cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDEwOHYyMEgweiIvPg0KICA8L2c+DQogIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDQ1LDAsMCwwLjA0NSwwLDEuMDIyNzI3MikiPg0KICAgIDxwYXRoIGZpbGw9IiNjY2MiIGQ9Ik0yNDIgNDhjODYsMCAxNTUsNjkgMTU1LDE1NCAwLDg2IC02OSwxNTUgLTE1NSwxNTUgLTg1LDAgLTE1NCwtNjkgLTE1NCwtMTU1IDAsLTg1IDY5LC0xNTQgMTU0LC0xNTR6bTM4IDE4NGMtMTcsMjIgLTQ4LDI2IC02OSw5IC0yMSwtMTYgLTI0LC00NyAtNywtNjkgMTgsLTIxIDQ5LC0yNSA3MCwtOSAyMSwxNyAyNCw0OCA2LDY5em0tODIgMTAxbDU5IC01N2MtMjIsNSAtNDUsMSAtNjMsLTE0IC0yMSwtMTYgLTMwLC00MyAtMjcsLTY4bC01MyA1OGMwLDAgLTcsLTEzIC05LC0zN2w5MyAtNzNjMjgsLTIwIDY2LC0yMSA5MywwIDMwLDI0IDM2LDY4IDE0LDEwMWwtNjggOTdjLTEwLDAgLTMwLC0zIC0zOSwtN3oiLz4NCiAgPC9nPg0KICA8ZyBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+DQoNCiAgICA8dGV4dCB4PSIyMiIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPmJ1aWxkPC90ZXh0Pg0KICAgIDx0ZXh0IHg9IjIyIiB5PSIxNCI+YnVpbGQ8L3RleHQ+DQoNCiAgICA8dGV4dCB4PSI1OCIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnBlbmRpbmc8L3RleHQ+DQogICAgPHRleHQgeD0iNTgiIHk9IjE0Ij5wZW5kaW5nPC90ZXh0Pg0KICA8L2c+DQo8L3N2Zz4=" alt="AppVeyor Build Status" /></a> <a href="https://codecov.io/github/benkeser/nlpred?branch=master"><img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTIyIiBoZWlnaHQ9IjIwIj48bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgyPSIwIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PC9saW5lYXJHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImEiPjxyZWN0IHdpZHRoPSIxMjIiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIi8+PC9jbGlwUGF0aD48ZyBjbGlwLXBhdGg9InVybCgjYSkiPjxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNjF2MjBIMHoiLz48cGF0aCBmaWxsPSIjOWY5ZjlmIiBkPSJNNjEgMGg2MXYyMEg2MXoiLz48cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDEyMnYyMEgweiIvPjwvZz48ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMTAiPiA8dGV4dCB4PSIzMTUiIHk9IjE1MCIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIHRleHRMZW5ndGg9IjUxMCI+Y292ZXJhZ2U8L3RleHQ+PHRleHQgeD0iMzE1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI1MTAiPmNvdmVyYWdlPC90ZXh0Pjx0ZXh0IHg9IjkwNSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNTEwIj51bmtub3duPC90ZXh0Pjx0ZXh0IHg9IjkwNSIgeT0iMTQwIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNTEwIj51bmtub3duPC90ZXh0PjwvZz4gPC9zdmc+" alt="Coverage Status" /></a></p>
 <!-- [![CRAN](http://www.r-pkg.org/badges/version/nlpred)](http://www.r-pkg.org/pkg/nlpred) -->
 
 <!-- [![CRAN downloads](https://cranlogs.r-pkg.org/badges/nlpred)](https://CRAN.R-project.org/package=nlpred) -->
@@ -631,374 +631,57 @@ body {
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(nlpred)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Loading required package: data.table</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"># simulate data</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">n &lt;-<span class="st"> </span><span class="dv">200</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">p &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p))</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">Y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="kw">plogis</span>(X[,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>X[,<span class="dv">10</span>]))</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co"># get cv auc estimates for logistic regression</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">logistic_cv_auc_ests &lt;-<span class="st"> </span><span class="kw">cv_auc</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>)</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">logistic_cv_auc_ests</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;                est         se       cil       ciu</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; cvtmle   0.7900437 0.03133407 0.7286300 0.8514573</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; onestep  0.7904006 0.03187774 0.7279214 0.8528798</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; esteq    0.7837634 0.03187774 0.7212842 0.8462427</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; standard 0.7860652 0.03210325 0.7231440 0.8489864</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co"># get cv auc estimates for random forest using nested </span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co"># cross-validation for nuisance parameter estimation. nested</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co"># cross-validation is unfortunately necessary when aggressive learners </span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co"># are used. </span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24">rf_cv_auc_ests &lt;-<span class="st"> </span><span class="kw">cv_auc</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, </a>
-<a class="sourceLine" id="cb3-25" data-line-number="25">                         <span class="dt">learner =</span> <span class="st">&quot;randomforest_wrapper&quot;</span>, </a>
-<a class="sourceLine" id="cb3-26" data-line-number="26">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-27" data-line-number="27">rf_cv_auc_ests</a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;                est         se       cil       ciu</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; cvtmle   0.7346812 0.03619140 0.6637474 0.8056151</span></a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; onestep  0.7349126 0.03650895 0.6633564 0.8064689</span></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt; esteq    0.7320209 0.03650895 0.6604646 0.8035771</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; standard 0.7370301 0.03468265 0.6690533 0.8050068</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co"># same examples for scrnp</span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35">logistic_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw">cv_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>)</a>
-<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-37" data-line-number="37">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-38" data-line-number="38">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-39" data-line-number="39">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-40" data-line-number="40">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-41" data-line-number="41">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-42" data-line-number="42">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-44" data-line-number="44"></a>
-<a class="sourceLine" id="cb3-45" data-line-number="45">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-46" data-line-number="46">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-47" data-line-number="47">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-48" data-line-number="48">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-49" data-line-number="49">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-50" data-line-number="50">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-55" data-line-number="55">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-56" data-line-number="56">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-57" data-line-number="57">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-58" data-line-number="58">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-60" data-line-number="60"></a>
-<a class="sourceLine" id="cb3-61" data-line-number="61">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-62" data-line-number="62">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-63" data-line-number="63">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-64" data-line-number="64">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-65" data-line-number="65">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-66" data-line-number="66">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-67" data-line-number="67"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-68" data-line-number="68"></a>
-<a class="sourceLine" id="cb3-69" data-line-number="69">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-70" data-line-number="70">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-71" data-line-number="71">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-72" data-line-number="72">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-73" data-line-number="73">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-74" data-line-number="74">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-75" data-line-number="75"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-76" data-line-number="76"></a>
-<a class="sourceLine" id="cb3-77" data-line-number="77">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-78" data-line-number="78">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-79" data-line-number="79">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-80" data-line-number="80">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-81" data-line-number="81">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-82" data-line-number="82">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-83" data-line-number="83"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-84" data-line-number="84"></a>
-<a class="sourceLine" id="cb3-85" data-line-number="85">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-86" data-line-number="86">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-87" data-line-number="87">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-88" data-line-number="88">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-89" data-line-number="89">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-90" data-line-number="90">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-91" data-line-number="91"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-92" data-line-number="92"></a>
-<a class="sourceLine" id="cb3-93" data-line-number="93">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-94" data-line-number="94">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-95" data-line-number="95">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-96" data-line-number="96">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-97" data-line-number="97">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-98" data-line-number="98">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-99" data-line-number="99"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-100" data-line-number="100"></a>
-<a class="sourceLine" id="cb3-101" data-line-number="101">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-102" data-line-number="102">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-103" data-line-number="103">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-104" data-line-number="104">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-105" data-line-number="105">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-106" data-line-number="106">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-107" data-line-number="107"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-108" data-line-number="108"></a>
-<a class="sourceLine" id="cb3-109" data-line-number="109">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-110" data-line-number="110">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-111" data-line-number="111">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-112" data-line-number="112">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-113" data-line-number="113">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-114" data-line-number="114">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-115" data-line-number="115"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-116" data-line-number="116"></a>
-<a class="sourceLine" id="cb3-117" data-line-number="117">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-118" data-line-number="118">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-119" data-line-number="119">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-120" data-line-number="120">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-121" data-line-number="121">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-122" data-line-number="122">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-123" data-line-number="123"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-124" data-line-number="124"></a>
-<a class="sourceLine" id="cb3-125" data-line-number="125">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-126" data-line-number="126">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-127" data-line-number="127">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-128" data-line-number="128">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-129" data-line-number="129">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-130" data-line-number="130">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-131" data-line-number="131"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-132" data-line-number="132"></a>
-<a class="sourceLine" id="cb3-133" data-line-number="133">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-134" data-line-number="134">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-135" data-line-number="135">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-136" data-line-number="136">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-137" data-line-number="137">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-138" data-line-number="138">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-139" data-line-number="139"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-140" data-line-number="140"></a>
-<a class="sourceLine" id="cb3-141" data-line-number="141">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-142" data-line-number="142">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-143" data-line-number="143">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-144" data-line-number="144">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-145" data-line-number="145">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-146" data-line-number="146">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-147" data-line-number="147"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-148" data-line-number="148"></a>
-<a class="sourceLine" id="cb3-149" data-line-number="149">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-150" data-line-number="150">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-151" data-line-number="151">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-152" data-line-number="152">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-153" data-line-number="153">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-154" data-line-number="154">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-155" data-line-number="155"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-156" data-line-number="156"></a>
-<a class="sourceLine" id="cb3-157" data-line-number="157">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-158" data-line-number="158">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-159" data-line-number="159">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-160" data-line-number="160">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-161" data-line-number="161">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-162" data-line-number="162">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-163" data-line-number="163"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-164" data-line-number="164"></a>
-<a class="sourceLine" id="cb3-165" data-line-number="165">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-166" data-line-number="166">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-167" data-line-number="167">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-168" data-line-number="168">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-169" data-line-number="169">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-170" data-line-number="170">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-171" data-line-number="171"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-172" data-line-number="172"></a>
-<a class="sourceLine" id="cb3-173" data-line-number="173">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-174" data-line-number="174">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-175" data-line-number="175">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-176" data-line-number="176">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-177" data-line-number="177">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-178" data-line-number="178">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-179" data-line-number="179"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-180" data-line-number="180"></a>
-<a class="sourceLine" id="cb3-181" data-line-number="181">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-182" data-line-number="182">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-183" data-line-number="183">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-184" data-line-number="184">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-185" data-line-number="185">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-186" data-line-number="186">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-187" data-line-number="187"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-188" data-line-number="188"></a>
-<a class="sourceLine" id="cb3-189" data-line-number="189">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-190" data-line-number="190">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-191" data-line-number="191">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-192" data-line-number="192">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-193" data-line-number="193">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-194" data-line-number="194">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-195" data-line-number="195"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-196" data-line-number="196">logistic_cv_scrnp_ests</a>
-<a class="sourceLine" id="cb3-197" data-line-number="197"><span class="co">#&gt;                 est         se         cil       ciu</span></a>
-<a class="sourceLine" id="cb3-198" data-line-number="198"><span class="co">#&gt; cvtmle   0.08467894 0.02983346 0.026206429 0.1431514</span></a>
-<a class="sourceLine" id="cb3-199" data-line-number="199"><span class="co">#&gt; onestep  0.06639411 0.03004345 0.007510036 0.1252782</span></a>
-<a class="sourceLine" id="cb3-200" data-line-number="200"><span class="co">#&gt; esteq    0.06639411 0.03004345 0.007510036 0.1252782</span></a>
-<a class="sourceLine" id="cb3-201" data-line-number="201"><span class="co">#&gt; standard 0.14294586 0.02782372 0.088412385 0.1974793</span></a>
-<a class="sourceLine" id="cb3-202" data-line-number="202"></a>
-<a class="sourceLine" id="cb3-203" data-line-number="203"></a>
-<a class="sourceLine" id="cb3-204" data-line-number="204">rf_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw">cv_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, </a>
-<a class="sourceLine" id="cb3-205" data-line-number="205">                         <span class="dt">learner =</span> <span class="st">&quot;randomforest_wrapper&quot;</span>, </a>
-<a class="sourceLine" id="cb3-206" data-line-number="206">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-207" data-line-number="207"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-208" data-line-number="208">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-209" data-line-number="209">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-210" data-line-number="210">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-211" data-line-number="211">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-212" data-line-number="212">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-213" data-line-number="213">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-214" data-line-number="214"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-215" data-line-number="215"></a>
-<a class="sourceLine" id="cb3-216" data-line-number="216">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-217" data-line-number="217">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-218" data-line-number="218">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-219" data-line-number="219">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-220" data-line-number="220">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-221" data-line-number="221">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-222" data-line-number="222"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-223" data-line-number="223"></a>
-<a class="sourceLine" id="cb3-224" data-line-number="224">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-225" data-line-number="225">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-226" data-line-number="226">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-227" data-line-number="227">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-228" data-line-number="228">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-229" data-line-number="229">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-230" data-line-number="230"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-231" data-line-number="231"></a>
-<a class="sourceLine" id="cb3-232" data-line-number="232">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-233" data-line-number="233">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-234" data-line-number="234">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-235" data-line-number="235">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-236" data-line-number="236">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-237" data-line-number="237">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-238" data-line-number="238"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-239" data-line-number="239"></a>
-<a class="sourceLine" id="cb3-240" data-line-number="240">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-241" data-line-number="241">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-242" data-line-number="242">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-243" data-line-number="243">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-244" data-line-number="244">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-245" data-line-number="245">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-246" data-line-number="246"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-247" data-line-number="247"></a>
-<a class="sourceLine" id="cb3-248" data-line-number="248">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-249" data-line-number="249">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-250" data-line-number="250">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-251" data-line-number="251">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-252" data-line-number="252">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-253" data-line-number="253">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-254" data-line-number="254"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-255" data-line-number="255"></a>
-<a class="sourceLine" id="cb3-256" data-line-number="256">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-257" data-line-number="257">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-258" data-line-number="258">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-259" data-line-number="259">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-260" data-line-number="260">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-261" data-line-number="261">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-262" data-line-number="262"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-263" data-line-number="263"></a>
-<a class="sourceLine" id="cb3-264" data-line-number="264">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-265" data-line-number="265">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-266" data-line-number="266">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-267" data-line-number="267">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-268" data-line-number="268">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-269" data-line-number="269">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-270" data-line-number="270"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-271" data-line-number="271"></a>
-<a class="sourceLine" id="cb3-272" data-line-number="272">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-273" data-line-number="273">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-274" data-line-number="274">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-275" data-line-number="275">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-276" data-line-number="276">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-277" data-line-number="277">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-278" data-line-number="278"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-279" data-line-number="279"></a>
-<a class="sourceLine" id="cb3-280" data-line-number="280">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-281" data-line-number="281">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-282" data-line-number="282">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-283" data-line-number="283">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-284" data-line-number="284">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-285" data-line-number="285">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-286" data-line-number="286"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-287" data-line-number="287"></a>
-<a class="sourceLine" id="cb3-288" data-line-number="288">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-289" data-line-number="289">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-290" data-line-number="290">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-291" data-line-number="291">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-292" data-line-number="292">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-293" data-line-number="293">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-294" data-line-number="294"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-295" data-line-number="295"></a>
-<a class="sourceLine" id="cb3-296" data-line-number="296">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-297" data-line-number="297">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-298" data-line-number="298">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-299" data-line-number="299">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-300" data-line-number="300">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-301" data-line-number="301">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-302" data-line-number="302"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-303" data-line-number="303"></a>
-<a class="sourceLine" id="cb3-304" data-line-number="304">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-305" data-line-number="305">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-306" data-line-number="306">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-307" data-line-number="307">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-308" data-line-number="308">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-309" data-line-number="309">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-310" data-line-number="310"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-311" data-line-number="311"></a>
-<a class="sourceLine" id="cb3-312" data-line-number="312">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-313" data-line-number="313">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-314" data-line-number="314">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-315" data-line-number="315">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-316" data-line-number="316">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-317" data-line-number="317">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-318" data-line-number="318"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-319" data-line-number="319"></a>
-<a class="sourceLine" id="cb3-320" data-line-number="320">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-321" data-line-number="321">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-322" data-line-number="322">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-323" data-line-number="323">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-324" data-line-number="324">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-325" data-line-number="325">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-326" data-line-number="326"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-327" data-line-number="327"></a>
-<a class="sourceLine" id="cb3-328" data-line-number="328">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-329" data-line-number="329">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-330" data-line-number="330">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-331" data-line-number="331">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-332" data-line-number="332">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-333" data-line-number="333">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-334" data-line-number="334"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-335" data-line-number="335"></a>
-<a class="sourceLine" id="cb3-336" data-line-number="336">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-337" data-line-number="337">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-338" data-line-number="338">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-339" data-line-number="339">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-340" data-line-number="340">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-341" data-line-number="341">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-342" data-line-number="342"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-343" data-line-number="343"></a>
-<a class="sourceLine" id="cb3-344" data-line-number="344">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-345" data-line-number="345">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-346" data-line-number="346">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-347" data-line-number="347">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-348" data-line-number="348">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-349" data-line-number="349">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-350" data-line-number="350"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-351" data-line-number="351"></a>
-<a class="sourceLine" id="cb3-352" data-line-number="352">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-353" data-line-number="353">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-354" data-line-number="354">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-355" data-line-number="355">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-356" data-line-number="356">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-357" data-line-number="357">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-358" data-line-number="358"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-359" data-line-number="359"></a>
-<a class="sourceLine" id="cb3-360" data-line-number="360">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-361" data-line-number="361">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-362" data-line-number="362">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-363" data-line-number="363">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">/</span></a>
-<a class="sourceLine" id="cb3-364" data-line-number="364">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-365" data-line-number="365">Multistart <span class="dv">1</span> of <span class="dv">1</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-366" data-line-number="366"><span class="st">                   </span></a>
-<a class="sourceLine" id="cb3-367" data-line-number="367">rf_cv_scrnp_ests</a>
-<a class="sourceLine" id="cb3-368" data-line-number="368"><span class="co">#&gt;                 est        se         cil       ciu</span></a>
-<a class="sourceLine" id="cb3-369" data-line-number="369"><span class="co">#&gt; cvtmle   0.08611932 0.0323499  0.02271469 0.1495240</span></a>
-<a class="sourceLine" id="cb3-370" data-line-number="370"><span class="co">#&gt; onestep  0.04881878 0.0327503 -0.01537063 0.1130082</span></a>
-<a class="sourceLine" id="cb3-371" data-line-number="371"><span class="co">#&gt; esteq    0.04881878 0.0327503 -0.01537063 0.1130082</span></a>
-<a class="sourceLine" id="cb3-372" data-line-number="372"><span class="co">#&gt; standard 0.06968534 0.0301356  0.01062064 0.1287500</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"># turn off messages from np package</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">options</span>(<span class="dt">np.messages=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># simulate data</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">n &lt;-<span class="st"> </span><span class="dv">200</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">p &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p))</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">Y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="kw">plogis</span>(X[,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>X[,<span class="dv">10</span>]))</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co"># get cv auc estimates for logistic regression</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">logistic_cv_auc_ests &lt;-<span class="st"> </span><span class="kw">cv_auc</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>)</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">logistic_cv_auc_ests</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;                est         se       cil       ciu</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; cvtmle   0.6670764 0.03640285 0.5957281 0.7384247</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; onestep  0.6678666 0.03665385 0.5960263 0.7397068</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; esteq    0.6615022 0.03665385 0.5896619 0.7333424</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; standard 0.6914749 0.03709762 0.6187649 0.7641849</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co"># get cv auc estimates for random forest using nested </span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co"># cross-validation for nuisance parameter estimation. nested</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co"># cross-validation is unfortunately necessary when aggressive learners </span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co"># are used. </span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27">rf_cv_auc_ests &lt;-<span class="st"> </span><span class="kw">cv_auc</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb3-28" data-line-number="28">                         <span class="dt">learner =</span> <span class="st">&quot;randomforest_wrapper&quot;</span>, </a>
+<a class="sourceLine" id="cb3-29" data-line-number="29">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-30" data-line-number="30">rf_cv_auc_ests</a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;                est         se       cil       ciu</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; cvtmle   0.6741849 0.03924245 0.5972711 0.7510987</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; onestep  0.6756517 0.03964472 0.5979495 0.7533540</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; esteq    0.6637178 0.03964472 0.5860156 0.7414200</span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; standard 0.6695957 0.03839784 0.5943373 0.7448541</span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co"># same examples for scrnp</span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38">logistic_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw">cv_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>)</a>
+<a class="sourceLine" id="cb3-39" data-line-number="39">logistic_cv_scrnp_ests</a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">#&gt;                 est         se        cil       ciu</span></a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; cvtmle   0.07687818 0.02536082 0.02717188 0.1265845</span></a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; onestep  0.06618483 0.02550616 0.01619368 0.1161760</span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; esteq    0.06618483 0.02550616 0.01619368 0.1161760</span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; standard 0.10403497 0.02707249 0.05097387 0.1570961</span></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"></a>
+<a class="sourceLine" id="cb3-46" data-line-number="46"></a>
+<a class="sourceLine" id="cb3-47" data-line-number="47">rf_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw">cv_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb3-48" data-line-number="48">                         <span class="dt">learner =</span> <span class="st">&quot;randomforest_wrapper&quot;</span>, </a>
+<a class="sourceLine" id="cb3-49" data-line-number="49">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-50" data-line-number="50">rf_cv_scrnp_ests</a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt;                 est         se        cil       ciu</span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; cvtmle   0.07019858 0.02231409 0.02646376 0.1139334</span></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; onestep  0.05918384 0.02237751 0.01532473 0.1030429</span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; esteq    0.05918384 0.02237751 0.01532473 0.1030429</span></a>
+<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; standard 0.09046480 0.02339266 0.04461603 0.1363136</span></a></code></pre></div>
 <hr />
 <h2 id="issues">Issues</h2>
 <p>If you encounter any bugs or have any specific feature requests, please <a href="https://github.com/benkeser/nlpred/issues">file an issue</a>.</p>
