@@ -7,6 +7,10 @@ output:
     theme: leonids
     highlight: vignette
 bibliography: refs.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{nlpred: Small-sample optimized estimators of nonlinear risks}
+  %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction

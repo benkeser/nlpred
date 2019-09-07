@@ -183,19 +183,19 @@ code span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb3-13" data-line-number="13">                               <span class="dt">nested_cv =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb3-14" data-line-number="14">logistic_cv_auc_ests</a></code></pre></div>
 <pre><code>##                est         se       cil       ciu
-## cvtmle   0.8128420 0.03106459 0.7519565 0.8737275
-## onestep  0.8136703 0.02950874 0.7558342 0.8715064
-## esteq    0.8272497 0.02950874 0.7694136 0.8850858
-## standard 0.8060942 0.03116800 0.7450060 0.8671824</code></pre>
+## cvtmle   0.7165534 0.03803084 0.6420144 0.7910925
+## onestep  0.7187913 0.03522776 0.6497462 0.7878364
+## esteq    0.7536358 0.03522776 0.6845906 0.8226809
+## standard 0.7092043 0.03618330 0.6382863 0.7801222</code></pre>
 <p>The main options to the <code>cv_auc</code> function are <code>Y</code>, the outcome, <code>X</code>, the features, and <code>K</code>, the number of cross-validation folds. The <code>learner</code> option specifies the learning algorithm of interest. See the <strong>Writing wrappers</strong> section below for more details. For now, it suffices to say that <code>&quot;glm_wrapper&quot;</code> corresponds to a main effects logistic regression. The <code>nested_cv</code> option is an important option in the estimation procedure. It specifies whether to use nested CV to estimate the nuisance parameters in each training sample. Obviously, requiring nested cross-validation adds considerable computational expense, so it is natural to inquire as to when this is necessary. In general, we recommend nested CV for more aggressive learning algorithms. Because logistic regression is a fairly stable algorithm, it may not be necessary in this case.</p>
 <p>The printed output shows four estimates of CV AUC based on the three different bias corrections (<code>cvtmle</code>, <code>onestep</code>, <code>esteq</code>) as well as the standard CV AUC estimate (<code>empirical</code>) <span class="citation">(LeDell, Petersen, and Laan 2015)</span>. Also shown is the influence function-based standard error estimate (<code>se</code>) and the limits of a, by default, 95% confidence interval. The level of the confidence interval is controlled by the <code>ci_level</code> of the <code>print.cv_auc</code> method.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># print a 90% CI</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">print</span>(logistic_cv_auc_ests, <span class="dt">ci_level =</span> <span class="fl">0.9</span>)</a></code></pre></div>
 <pre><code>##                est         se       cil       ciu
-## cvtmle   0.8128420 0.03106459 0.7617453 0.8639387
-## onestep  0.8136703 0.02950874 0.7651327 0.8622079
-## esteq    0.8272497 0.02950874 0.7787121 0.8757873
-## standard 0.8060942 0.03116800 0.7548274 0.8573610</code></pre>
+## cvtmle   0.7165534 0.03803084 0.6539983 0.7791086
+## onestep  0.7187913 0.03522776 0.6608468 0.7767358
+## esteq    0.7536358 0.03522776 0.6956913 0.8115803
+## standard 0.7092043 0.03618330 0.6496880 0.7687205</code></pre>
 <p>We now consider a more aggressive algorithm: random forests (as implemented in the <code>ranger</code> package).</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># load the ranger package</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">library</span>(ranger)</a>
@@ -210,10 +210,10 @@ code span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb7-11" data-line-number="11">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb7-12" data-line-number="12">rf_cv_auc_ests</a></code></pre></div>
 <pre><code>##                est         se       cil       ciu
-## cvtmle   0.7572611 0.03566926 0.6873506 0.8271716
-## onestep  0.7582370 0.03639593 0.6869023 0.8295717
-## esteq    0.7496598 0.03639593 0.6783250 0.8209945
-## standard 0.7515048 0.03419679 0.6844803 0.8185293</code></pre>
+## cvtmle   0.6619869 0.03916916 0.5852168 0.7387570
+## onestep  0.6618443 0.03913899 0.5851333 0.7385553
+## esteq    0.6623414 0.03913899 0.5856303 0.7390524
+## standard 0.6761779 0.03863709 0.6004506 0.7519053</code></pre>
 <p>By default, <code>cv_auc</code> will use <code>K-1</code> folds for the nested cross-validation. This choice is a sensible default since it allows for considerably less learner training relative to, e.g., two layers of <span class="math inline">\(K\)</span>-fold CV, because certain learners can be re-used across different partitions of the data. However, if one wishes to control this, there is the <code>nested_K</code> option.</p>
 </div>
 <div id="available-wrappers" class="section level1">
@@ -279,15 +279,13 @@ code span.er { color: #a61717; background-color: #e3d2d2; }
 ##         test$X &lt;- data.frame(test$X)
 ##     }
 ##     glm_fit &lt;- stats::glm(train$Y ~ ., data = train$X, family = stats::binomial())
-##     Psi_nBn_0 &lt;- function(x) {
-##         stats::predict(glm_fit, newdata = x, type = &quot;response&quot;)
-##     }
-##     train_pred &lt;- Psi_nBn_0(train$X)
-##     test_pred &lt;- Psi_nBn_0(test$X)
+##     train_pred &lt;- stats::predict(glm_fit, newdata = train$X, 
+##         type = &quot;response&quot;)
+##     test_pred &lt;- stats::predict(glm_fit, newdata = test$X, type = &quot;response&quot;)
 ##     return(list(test_pred = test_pred, train_pred = train_pred, 
 ##         model = NULL, train_y = train$Y, test_y = test$Y))
 ## }
-## &lt;bytecode: 0x7f9169436158&gt;
+## &lt;bytecode: 0x7fa1dd9715e8&gt;
 ## &lt;environment: namespace:nlpred&gt;</code></pre>
 <p>We see that the function expect input in the form of two lists: <code>train</code> and <code>test</code>. In these lists, we expect to find entries <code>X</code> and <code>Y</code> corresponding to the features and outcomes, respectively, in the a giving training sample and validation/testing sample. The salient points of the workflow of this function are: fit a main terms logistic regression and store it in the <code>glm_fit</code> object; obtain predictions on both the training data and testing data; structure the output to have a particular format. In particular, the output should be a list with named entries <code>test_pred</code>, predictions in the test sample, <code>train_pred</code>, predictions in the training sample, <code>model</code>, the fitted model (optional; only needed if you wish to examine it in the <code>$prediction_list</code> entry of the output of <code>cv_auc</code>), <code>train_y</code>, the training sample outcomes (copied from <code>train$Y</code>), and <code>test_y</code>, the testing sample outcomes (copied from <code>test$Y</code>).</p>
 </div>
@@ -302,22 +300,22 @@ code span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb11-3" data-line-number="3">                               <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>,</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">                               <span class="dt">nested_cv =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">logistic_cv_scrnp_ests</a></code></pre></div>
-<pre><code>##                est         se        cil       ciu
-## cvtmle   0.2060301 0.03813105 0.13129457 0.2807655
-## onestep  0.1669431 0.03902699 0.09045158 0.2434346
-## esteq    0.1669431 0.03902699 0.09045158 0.2434346
-## standard 0.1893380 0.03508860 0.12056557 0.2581104</code></pre>
+<pre><code>##                est         se          cil       ciu
+## cvtmle   0.2188249 0.06035785  0.100525725 0.3371241
+## onestep  0.1184161 0.06336088 -0.005768936 0.2426011
+## esteq    0.1184161 0.06336088 -0.005768936 0.2426011
+## standard 0.1740306 0.03872608  0.098128859 0.2499323</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># get cv scrnp estimates for random forest</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># using nested cross-validation for nuisance parameter estimation</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3">rf_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw">cv_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, </a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">                         <span class="dt">learner =</span> <span class="st">&quot;ranger_wrapper&quot;</span>, </a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">rf_cv_scrnp_ests</a></code></pre></div>
-<pre><code>##                est         se        cil       ciu
-## cvtmle   0.1719549 0.02607967 0.12083972 0.2230701
-## onestep  0.2039049 0.02574453 0.15344650 0.2543632
-## esteq    0.2039049 0.02574453 0.15344650 0.2543632
-## standard 0.1657791 0.03474681 0.09767665 0.2338816</code></pre>
+<pre><code>##                est         se       cil       ciu
+## cvtmle   0.1669271 0.03154730 0.1050955 0.2287587
+## onestep  0.2034143 0.03090766 0.1428364 0.2639922
+## esteq    0.2034143 0.03090766 0.1428364 0.2639922
+## standard 0.1742911 0.03545364 0.1048033 0.2437790</code></pre>
 </div>
 <div id="other-methods-implemented-in-nlpred" class="section level1">
 <h1>Other methods implemented in <code>nlpred</code></h1>
@@ -330,25 +328,25 @@ code span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb15-3" data-line-number="3">                         <span class="dt">correct632 =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb15-4" data-line-number="4">boot_auc_est</a></code></pre></div>
 <pre><code>## $auc
-## [1] 0.8004391</code></pre>
+## [1] 0.7359966</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># with 0.632 correction </span></a>
 <a class="sourceLine" id="cb17-2" data-line-number="2">boot632_auc_est &lt;-<span class="st"> </span><span class="kw">boot_auc</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>, </a>
 <a class="sourceLine" id="cb17-3" data-line-number="3">                         <span class="dt">correct632 =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb17-4" data-line-number="4">boot632_auc_est</a></code></pre></div>
 <pre><code>## $auc
-## [1] 0.8002721</code></pre>
+## [1] 0.731235</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># get bootstrap estimated scrnp of logistic regression</span></a>
 <a class="sourceLine" id="cb19-2" data-line-number="2">boot_scrnp_est &lt;-<span class="st"> </span><span class="kw">boot_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>, </a>
 <a class="sourceLine" id="cb19-3" data-line-number="3">                             <span class="dt">correct632 =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb19-4" data-line-number="4">boot_scrnp_est</a></code></pre></div>
 <pre><code>## $scrnp
-## [1] 0.181225</code></pre>
+## [1] 0.19795</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># with 0.632 correction </span></a>
 <a class="sourceLine" id="cb21-2" data-line-number="2">boot632_scrnp_est &lt;-<span class="st"> </span><span class="kw">boot_scrnp</span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">learner =</span> <span class="st">&quot;glm_wrapper&quot;</span>, </a>
 <a class="sourceLine" id="cb21-3" data-line-number="3">                         <span class="dt">correct632 =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb21-4" data-line-number="4">boot632_scrnp_est</a></code></pre></div>
 <pre><code>## $scrnp
-## [1] 0.07377176</code></pre>
+## [1] 0.07775713</code></pre>
 </div>
 <div id="leave-pairs-out-cv-auc-estimator" class="section level3">
 <h3>Leave-pairs-out CV AUC estimator</h3>
@@ -358,7 +356,7 @@ code span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb23-3" data-line-number="3">                          <span class="dt">max_pairs =</span> <span class="dv">250</span>)</a>
 <a class="sourceLine" id="cb23-4" data-line-number="4">lpo_cv_auc_est</a></code></pre></div>
 <pre><code>## $auc
-## [1] 0.812</code></pre>
+## [1] 0.704</code></pre>
 </div>
 </div>
 <div id="parallelization-in-nlpred" class="section level1">

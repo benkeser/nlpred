@@ -17,6 +17,8 @@ Imports:
 	np,
 	assertthat
 Suggests:
+	knitr, 
+	rmarkdown,
 	testthat,
 	prettydoc,
 	randomForest,
@@ -25,5 +27,6 @@ Suggests:
 	glmnet,
 License: MIT + file LICENSE
 Encoding: UTF-8
+VignetteBuilder: knitr, rmarkdown
 LazyData: true
 RoxygenNote: 6.1.1

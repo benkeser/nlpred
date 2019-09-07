@@ -123,10 +123,10 @@
 <a class="sourceLine" id="cb3-15" data-line-number="15">logistic_cv_auc_ests &lt;-<span class="st"> </span><span class="kw"><a href="reference/cv_auc.html">cv_auc</a></span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">learner =</span> <span class="st">"glm_wrapper"</span>)</a>
 <a class="sourceLine" id="cb3-16" data-line-number="16">logistic_cv_auc_ests</a>
 <a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;                est         se       cil       ciu</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; cvtmle   0.7282283 0.03451475 0.6605807 0.7958760</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; onestep  0.7285879 0.03485260 0.6602780 0.7968977</span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; esteq    0.7209989 0.03485260 0.6526890 0.7893087</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; standard 0.7274687 0.03557465 0.6577436 0.7971937</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; cvtmle   0.8242108 0.02789102 0.7695454 0.8788762</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; onestep  0.8256985 0.02875800 0.7693338 0.8820631</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; esteq    0.8160500 0.02875800 0.7596854 0.8724146</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; standard 0.8260000 0.02932401 0.7685260 0.8834740</span></a>
 <a class="sourceLine" id="cb3-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co"># get cv auc estimates for random forest using nested </span></a>
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co"># cross-validation for nuisance parameter estimation. nested</span></a>
@@ -137,30 +137,30 @@
 <a class="sourceLine" id="cb3-29" data-line-number="29">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb3-30" data-line-number="30">rf_cv_auc_ests</a>
 <a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;                est         se       cil       ciu</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; cvtmle   0.7108647 0.03813569 0.6361202 0.7856093</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; onestep  0.7110853 0.03826339 0.6360904 0.7860801</span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; esteq    0.7088706 0.03826339 0.6338758 0.7838655</span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; standard 0.7083835 0.03766904 0.6345535 0.7822134</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; cvtmle   0.7960348 0.03212763 0.7330658 0.8590038</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; onestep  0.7968159 0.03261383 0.7328940 0.8607378</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; esteq    0.7911588 0.03261383 0.7272368 0.8550807</span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; standard 0.7925000 0.03158789 0.7305889 0.8544111</span></a>
 <a class="sourceLine" id="cb3-36" data-line-number="36"></a>
 <a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co"># same examples for scrnp</span></a>
 <a class="sourceLine" id="cb3-38" data-line-number="38">logistic_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw"><a href="reference/cv_scrnp.html">cv_scrnp</a></span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">learner =</span> <span class="st">"glm_wrapper"</span>)</a>
 <a class="sourceLine" id="cb3-39" data-line-number="39">logistic_cv_scrnp_ests</a>
-<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">#&gt;                 est         se         cil       ciu</span></a>
-<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; cvtmle   0.11449972 0.04435157  0.02757224 0.2014272</span></a>
-<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; onestep  0.07707887 0.04461374 -0.01036246 0.1645202</span></a>
-<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; esteq    0.07707887 0.04461374 -0.01036246 0.1645202</span></a>
-<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; standard 0.15460952 0.03001813  0.09577506 0.2134440</span></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">#&gt;                est         se       cil       ciu</span></a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; cvtmle   0.1766128 0.03491562 0.1081794 0.2450461</span></a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; onestep  0.2123268 0.03497827 0.1437707 0.2808830</span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; esteq    0.2123268 0.03497827 0.1437707 0.2808830</span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; standard 0.2350000 0.05373275 0.1296857 0.3403143</span></a>
 <a class="sourceLine" id="cb3-45" data-line-number="45"></a>
 <a class="sourceLine" id="cb3-46" data-line-number="46"></a>
 <a class="sourceLine" id="cb3-47" data-line-number="47">rf_cv_scrnp_ests &lt;-<span class="st"> </span><span class="kw"><a href="reference/cv_scrnp.html">cv_scrnp</a></span>(<span class="dt">Y =</span> Y, <span class="dt">X =</span> X, <span class="dt">K =</span> <span class="dv">5</span>, </a>
 <a class="sourceLine" id="cb3-48" data-line-number="48">                         <span class="dt">learner =</span> <span class="st">"randomforest_wrapper"</span>, </a>
 <a class="sourceLine" id="cb3-49" data-line-number="49">                         <span class="dt">nested_cv =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb3-50" data-line-number="50">rf_cv_scrnp_ests</a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt;                 est         se        cil       ciu</span></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; cvtmle   0.08154529 0.02713568 0.02836033 0.1347302</span></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; onestep  0.10311786 0.02695464 0.05028773 0.1559480</span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; esteq    0.10311786 0.02695464 0.05028773 0.1559480</span></a>
-<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; standard 0.10458847 0.03126662 0.04330703 0.1658699</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt;                est         se         cil       ciu</span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; cvtmle   0.1524628 0.05693331  0.04087555 0.2640500</span></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; onestep  0.1026819 0.05798534 -0.01096730 0.2163311</span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; esteq    0.1026819 0.05798534 -0.01096730 0.2163311</span></a>
+<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; standard 0.1300000 0.03985132  0.05189284 0.2081072</span></a></code></pre></div>
 <hr>
 </div>
 <div id="issues" class="section level2">
