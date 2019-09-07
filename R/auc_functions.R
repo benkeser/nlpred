@@ -1,6 +1,7 @@
 utils::globalVariables(c(":="))
 
-#' Cross-validated area under the receiver operating characteristics curve (AUC)
+#' Estimate the cross-validated area under the receiver operating characteristics 
+#' curve (AUC)
 #' 
 #' This function computes K-fold cross-validated estimates of the area under
 #' the receiver operating characteristics (ROC) curve (hereafter, AUC). This
@@ -8,10 +9,20 @@ utils::globalVariables(c(":="))
 #' case will have higher predicted risk than a randomly selected control. 
 #' 
 #' To estimate the AUC of a particular prediction algorithm, K-fold cross-validation
-#' is commonly used. The data are partitioned into K distinct groups. The 
+#' is commonly used: data are partitioned into K distinct groups and the
 #' prediction algorithm is developed using K-1 of these groups. In standard K-fold
 #' cross-validation, the AUC of this prediction algorithm is estimated using
-#' the remaining fold 
+#' the remaining fold. This can be problematic when the number of observations is 
+#' small or the number of cross-validation folds is large. 
+#' 
+#' Here, we estimate relevant nuisance parameters in the training sample and use
+#' the validation sample to perform some form of bias correction -- either through
+#' cross-validated targeted minimum loss-based estimation, estimating equations, 
+#' or one-step estimation. When aggressive learning algorithms are applied, it is
+#' necessary to use an additional layer of cross-validation in the training sample
+#' to estimate the nuisance parameters. This is controlled via the \code{nested_cv}
+#' option below. 
+#' 
 #' 
 #' @param Y A numeric vector of outcomes, assume to equal \code{0} or \code{1}.
 #' @param X A \code{data.frame} or \code{matrix} of variables for prediction.
@@ -41,13 +52,48 @@ utils::globalVariables(c(":="))
 #' @importFrom Rdpack reprompt
 #' @importFrom assertthat assert_that
 #' @export
-#' @return A list TO DO: More documentation here
+#' @return An object of class \code{"cvauc"}. \describe{
+#' \item{\code{est_cvtmle}}{cross-validated targeted minimum loss-based estimator of K-fold CV AUC}
+#' \item{\code{iter_cvtmle}}{iterations needed to achieve convergence of CVTMLE algorithm}
+#' \item{\code{cvtmle_trace}}{the value of the CVTMLE at each iteration of the targeting algorithm}
+#' \item{\code{se_cvtmle}}{estimated standard error based on targeted nuisance parameters}
+#' \item{\code{est_init}}{plug-in estimate of CV AUC where nuisance parameters are estimated
+#' in the training sample}
+#' \item{\code{est_empirical}}{the standard K-fold CV AUC estimator}
+#' \item{\code{se_empirical}}{estimated standard error for the standard estimator}
+#' \item{\code{est_onestep}}{cross-validated one-step estimate of K-fold CV AUC}
+#' \item{\code{se_onestep}}{estimated standard error for the one-step estimator}
+#' \item{\code{est_esteq}}{cross-validated estimating equations estimate of K-fold CV AUC}
+#' \item{\code{se_esteq}}{estimated standard error for the estimating equations estimator 
+#' (same as for one-step)}
+#' \item{\code{folds}}{list of observation indexes in each validation fold}
+#' \item{\code{ic_cvtmle}}{influence function evaluated at the targeted nuisance parameter
+#' estimates}
+#' \item{\code{ic_onestep}}{influence function evaluated at the training-fold-estimated
+#' nuisance parameters}
+#' \item{\code{ic_esteq}}{influence function evaluated at the training-fold-estimated 
+#' nuisance parameters}
+#' \item{\code{ic_empirical}}{influence function evaluated at the validation-fold 
+#' estimated nuisance parameters}
+#' \item{\code{prediction_list}}{a list of output from the cross-validated model training; 
+#' see the individual wrapper function documentation for further details}
+#' }
+#' 
 #' @examples
+#' # simulate data
 #' n <- 200
 #' p <- 10
 #' X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
 #' Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
-#' fit <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
+#' 
+#' # get cv auc estimates for logistic regression
+#' cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
+#' 
+#' # get cv auc estimates for random forest
+#' # using nested cross-validation for nuisance parameter estimation
+#' # fit <- cv_auc(Y = Y, X = X, K = 5, 
+#'                 learner = "randomforest_wrapper", 
+#'                 nested_cv = TRUE)
 
 cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper", 
                   nested_cv = TRUE,
@@ -77,7 +123,7 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
           )
   # train learners in all necessary combination of folds
   if(is.null(prediction_list)){
-    prediction_list <- .getPredictions(
+    prediction_list <- .get_predictions(
       learner = learner, Y = Y, X = X, K = K, nested_K = nested_K, 
       folds=folds, parallel = FALSE, nested_cv = nested_cv
     )
@@ -85,9 +131,9 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
 
   # make long data for targeting step of cvtmle
   if(!nested_cv){
-    long_data_list <- lapply(prediction_list, .makeLongData, gn = mean(Y))
+    long_data_list <- lapply(prediction_list, .make_long_data, gn = mean(Y))
   }else{
-    long_data_list <- sapply(1:K, .makeLongDataNestedCV, gn = mean(Y), 
+    long_data_list <- sapply(1:K, .make_long_data_nested_cv, gn = mean(Y), 
                              prediction_list = prediction_list, folds = folds,
                              simplify = FALSE)    
   }
@@ -107,20 +153,20 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
 
   # compute initial estimate of training fold-specific learner distribution
   if(!nested_cv){
-    dist_psix_y0_star <- lapply(prediction_list, .getPsiDistribution, 
+    dist_psix_y0_star <- lapply(prediction_list, .get_psi_distribution, 
                            y = 0, epsilon = epsilon_0)
-    dist_psix_y1_star <- lapply(prediction_list, .getPsiDistribution, y = 1,
+    dist_psix_y1_star <- lapply(prediction_list, .get_psi_distribution, y = 1,
                            epsilon = epsilon_1)
   }else{
-    dist_psix_y0_star <- sapply(1:K, .getPsiDistributionNestedCV, 
+    dist_psix_y0_star <- sapply(1:K, .get_psi_distribution_nested_cv, 
                            y = 0, epsilon = epsilon_0, folds = folds, 
                            prediction_list = prediction_list, simplify = FALSE)
-    dist_psix_y1_star <- sapply(1:K, .getPsiDistributionNestedCV, 
+    dist_psix_y1_star <- sapply(1:K, .get_psi_distribution_nested_cv, 
                            y = 1, epsilon = epsilon_1, folds = folds, 
                            prediction_list = prediction_list, simplify = FALSE)
   }
   # get initial estimate of AUC
-  init_auc <- mean(mapply(FUN = .getAUC, dist_y0 = dist_psix_y0_star, 
+  init_auc <- mean(mapply(FUN = .get_auc, dist_y0 = dist_psix_y0_star, 
                      dist_y1 = dist_psix_y1_star))
   # hard code in for case that psi is constant and doesn't depend on Y
   if(identical(dist_psix_y0_star, dist_psix_y1_star)){
@@ -135,14 +181,14 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
     # CV estimating equations estimator
     if(!nested_cv){
       est_esteq <- tryCatch({
-        stats::uniroot(.estimatingFn, interval = c(0, 1), 
+        stats::uniroot(.estim_fn, interval = c(0, 1), 
                        prediction_list = prediction_list, 
                        gn = mean(Y))$root
       }, error = function(e){ return(NA) })
       se_esteq <- se_onestep
     }else{
       est_esteq <- tryCatch({
-        stats::uniroot(.estimatingFnNestedCV, interval = c(0, 1), 
+        stats::uniroot(.estim_fn_nested_cv, interval = c(0, 1), 
                        prediction_list = prediction_list, gn = mean(Y), 
                        folds = folds, K = K)$root
       }, error = function(e){ return(NA) })
@@ -178,11 +224,11 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
       }
       # update values in long_data_list
       if(!nested_cv){
-        update_long_data_list <- lapply(prediction_list, .makeLongData, gn = mean(Y),
+        update_long_data_list <- lapply(prediction_list, .make_long_data, gn = mean(Y),
                                  epsilon_0 = epsilon_0, epsilon_1 = epsilon_1,
                                  update = TRUE)
       }else{
-        update_long_data_list <- sapply(1:K, .makeLongDataNestedCV, gn = mean(Y),
+        update_long_data_list <- sapply(1:K, .make_long_data_nested_cv, gn = mean(Y),
                                  epsilon_0 = epsilon_0, epsilon_1 = epsilon_1,
                                  prediction_list = prediction_list, folds = folds, 
                                  update = TRUE, simplify = FALSE)
@@ -214,11 +260,11 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
         epsilon_1[iter] <- eps_seq[idx_min] 
       }
       if(!nested_cv){
-        update_long_data_list <- lapply(prediction_list, .makeLongData, gn = mean(Y),
+        update_long_data_list <- lapply(prediction_list, .make_long_data, gn = mean(Y),
                                  epsilon_0 = epsilon_0, epsilon_1 = epsilon_1,
                                  update = TRUE)
       }else{
-        update_long_data_list <- sapply(1:K, .makeLongDataNestedCV, gn = mean(Y),
+        update_long_data_list <- sapply(1:K, .make_long_data_nested_cv, gn = mean(Y),
                                  epsilon_0 = epsilon_0, epsilon_1 = epsilon_1,
                                  prediction_list = prediction_list, folds = folds, 
                                  update = TRUE, simplify = FALSE)
@@ -234,21 +280,21 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
 
       # compute estimated cv-AUC 
       if(!nested_cv){
-        dist_psix_y0_star <- lapply(prediction_list, .getPsiDistribution, 
+        dist_psix_y0_star <- lapply(prediction_list, .get_psi_distribution, 
                                y = 0, epsilon = epsilon_0)
-        dist_psix_y1_star <- lapply(prediction_list, .getPsiDistribution, y = 1,
+        dist_psix_y1_star <- lapply(prediction_list, .get_psi_distribution, y = 1,
                                epsilon = epsilon_1)
       }else{
-        dist_psix_y0_star <- sapply(1:K, .getPsiDistributionNestedCV, 
+        dist_psix_y0_star <- sapply(1:K, .get_psi_distribution_nested_cv, 
                                y = 0, epsilon = epsilon_0, folds = folds, 
                                prediction_list = prediction_list, simplify = FALSE)
-        dist_psix_y1_star <- sapply(1:K, .getPsiDistributionNestedCV, 
+        dist_psix_y1_star <- sapply(1:K, .get_psi_distribution_nested_cv, 
                                y = 1, epsilon = epsilon_1, folds = folds, 
                                prediction_list = prediction_list, simplify = FALSE)
       }
 
       # get AUC
-      tmle_auc[iter] <- mean(mapply(FUN = .getAUC, dist_y0 = dist_psix_y0_star, 
+      tmle_auc[iter] <- mean(mapply(FUN = .get_auc, dist_y0 = dist_psix_y0_star, 
                          dist_y1 = dist_psix_y1_star))
 
     }
@@ -297,11 +343,6 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
   out$ic_esteq <- ic_os
   out$ic_empirical <- ic_emp
 
-  out$se_cvtmle_type <- "std"
-  out$se_esteq_type <- "std"
-  out$se_onestep_type <- "std"
-  out$se_empirical_type <- "std"
-
   out$prediction_list <- prediction_list
   class(out) <- "cvauc"
   return(out)
@@ -335,7 +376,6 @@ cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper",
 #' \item{ci}{A vector of length two containing the upper and lower bounds for the confidence interval.}
 #' \item{confidence}{A number between 0 and 1 representing the confidence.}
 #' \item{ic}{A vector of the influence function evaluated at observations.}
-#' @export
 
 ci.cvAUC_withIC <- function(predictions, labels, label.ordering = NULL, 
                             folds = NULL, confidence = 0.95) {
@@ -488,7 +528,7 @@ ci.cvAUC_withIC <- function(predictions, labels, label.ordering = NULL,
 
 #' Helper function for CVTMLE grid search
 #' @param epsilon Fluctuation parameter 
-#' @param fld full_long_data_list
+#' @param fld The \code{full_long_data_list} object created
 #' @param tol Tolerance on predictions close to 0 or 1
 #' @return A numeric value of negative log-likelihood
 fluc_mod_optim_0 <- function(epsilon, fld, tol = 1e-3){
@@ -517,7 +557,7 @@ fluc_mod_optim_1 <- function(epsilon, fld, tol = 1e-3){
 #' @param gn Marginal probability of outcome
 #' @return A numeric value of the estimating function evaluated at current
 #' \code{auc} estimate. 
-.estimatingFn <- function(auc = 0.5, prediction_list, gn){
+.estim_fn <- function(auc = 0.5, prediction_list, gn){
   # get first influence function piece for everyone
   ic_1 <- 
   Reduce("c",lapply(prediction_list, function(x){
@@ -545,7 +585,7 @@ fluc_mod_optim_1 <- function(epsilon, fld, tol = 1e-3){
 #' @param K Number of CV folds
 #' @return A numeric value of the estimating function evaluated at current
 #' \code{auc} estimate. 
-.estimatingFnNestedCV <- function(auc = 0.5, prediction_list, folds, gn, K){
+.estim_fn_nested_cv <- function(auc = 0.5, prediction_list, folds, gn, K){
   # get first influence function piece for everyone
   ic_1 <- 
   Reduce("c",sapply(1:K, function(x){
@@ -608,7 +648,7 @@ F_nBn_star <- function(psi_x, y, train_pred, train_y,
 #' @param y Value of Y to condition on 
 #' @param epsilon Vector of fluctuation parameter estimates
 #' @param tol A truncation level when taking logit transformations. 
-#' @param inner_valid_prediction_and_y_list A list of predictions and y's from \code{.getPredictions}.
+#' @param inner_valid_prediction_and_y_list A list of predictions and y's from \code{.get_predictions}.
 #' @return Numeric value of CDF at \code{psi_x}
 F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list, 
                                  epsilon = 0, tol = 1e-3){
@@ -625,7 +665,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' CVTMLE targeting step 
 #' 
 #' @param x An entry in the "predictions list" that has certain
-#' named values (see \code{?.getPredictions})
+#' named values (see \code{?.get_predictions})
 #' @param gn An estimate of the probability that \code{Y = 1}.
 #' @param update A boolean of whether this is called for initial
 #' construction of the long data set or as part of the targeting loop. 
@@ -649,7 +689,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' that psix <= u), logit_Fn (the cdf estimate on the logit scale, needed for 
 #' offset in targeting model).
 
-.makeLongData <- function(x, gn, update = FALSE, epsilon_0 = 0, epsilon_1 = 0,
+.make_long_data <- function(x, gn, update = FALSE, epsilon_0 = 0, epsilon_1 = 0,
                           tol = 1e-3
                           ){
   # first the dumb way, writing a loop over x$test_pred
@@ -788,7 +828,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' gn (estimate of marginal of Y e.g., computed in whole sample), outcome (indicator
 #' that psix <= u), logit_Fn (the cdf estimate on the logit scale, needed for 
 #' offset in targeting model).
-.makeLongDataNestedCV <- function(x, prediction_list, folds, gn, update = FALSE, epsilon_0 = 0, epsilon_1 = 0,
+.make_long_data_nested_cv <- function(x, prediction_list, folds, gn, update = FALSE, epsilon_0 = 0, epsilon_1 = 0,
                           # tol = .Machine$double.neg.eps, 
                           tol = 1e-3
                           ){
@@ -923,12 +963,12 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 
 #' Compute the AUC given the cdf and pdf of psi 
 #' 
-#' See \code{?.getPsiDistribution} to understand expected input format
+#' See \code{?.get_psi_distribution} to understand expected input format
 #' 
 #' @param dist_y0 Distribution of psi given Y = 0
 #' @param dist_y1 Distribution of psi given Y = 1
 #' @return Numeric value of AUC
-.getAUC <- function(dist_y0, dist_y1){
+.get_auc <- function(dist_y0, dist_y1){
   if(identical(dist_y0, dist_y1)){
     tot <- 0.5
   } else {
@@ -945,7 +985,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 
 #' Compute the conditional (given Y = y) estimated distribution of psi
 #' 
-#' @param x An entry in the output from .getPredictions
+#' @param x An entry in the output from .get_predictions
 #' @param y What value of Y to compute dist. est. 
 #' @param epsilon A vector of estimated coefficients form tmle fluctuation 
 #' submodels. 
@@ -953,7 +993,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' @return A data.frame with the distribution of psi given Y = y with names
 #' psix (what value estimates are evaluated at), dFn (density estimates),
 #' Fn (cdf estimates)
-.getPsiDistribution <- function(x, y, epsilon = 0){
+.get_psi_distribution <- function(x, y, epsilon = 0){
     this_n <- length(x$train_pred[x$train_y == y])
     uniq_train_psi_y <- sort(unique(x$train_pred[x$train_y == y]))
     FynBn_y <- sapply(uniq_train_psi_y, 
@@ -971,7 +1011,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' 
 #' @param x The outer validation fold withheld
 #' @param y What value of Y to compute dist. est. 
-#' @param prediction_list List output from .getPredictions.
+#' @param prediction_list List output from .get_predictions.
 #' @param folds Cross validation fold indicator. 
 #' @param epsilon A vector of estimated coefficients form tmle fluctuation 
 #' submodels. 
@@ -979,7 +1019,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' @return A data.frame with the distribution of psi given Y = y with names
 #' psix (what value estimates are evaluated at), dFn (density estimates),
 #' Fn (cdf estimates)
-.getPsiDistributionNestedCV <- function(x, y, prediction_list, folds, epsilon = 0){
+.get_psi_distribution_nested_cv <- function(x, y, prediction_list, folds, epsilon = 0){
   # find all V-1 fold CV fits with this x in them. These will be the inner
   # CV fits that are needed. The first entry in this vector will correspond
   # to the outer V fold CV fit, which is what we want to make the outcome 
@@ -1026,7 +1066,7 @@ F_nBn_star_nested_cv <- function(psi_x, y, inner_valid_prediction_and_y_list,
 #' @param nested_K How many folds of nested CV?
 #' @importFrom utils combn
 #' @return A list of the result of the wrapper executed in each fold
-.getPredictions <- function(learner, Y, X, K = 10, folds, parallel, nested_cv = FALSE,
+.get_predictions <- function(learner, Y, X, K = 10, folds, parallel, nested_cv = FALSE,
                             nested_K = K - 1){
   .doFit <- function(x, tmpX, Y, folds, learner, seed = 21){
     set.seed(seed)
@@ -1155,7 +1195,7 @@ lpo_auc <- function(Y, X, learner = "glm_wrapper",
   }
   folds <- split(grid_idx, seq_len(nrow(grid_idx)))
 
-  prediction_list <- .getPredictions(learner = learner, Y = Y, X = X, 
+  prediction_list <- .get_predictions(learner = learner, Y = Y, X = X, 
                                K = length(folds), folds=folds, parallel = parallel,
                                nested_cv = FALSE)
 

@@ -13,7 +13,7 @@ F_nBn_star_nested_cv(psi_x, y, inner_valid_prediction_and_y_list,
 
 \item{y}{Value of Y to condition on}
 
-\item{inner_valid_prediction_and_y_list}{A list of predictions and y's from \code{.getPredictions}.}
+\item{inner_valid_prediction_and_y_list}{A list of predictions and y's from \code{.get_predictions}.}
 
 \item{epsilon}{Vector of fluctuation parameter estimates}
 

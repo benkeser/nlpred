@@ -9,7 +9,7 @@ fluc_mod_optim_0(epsilon, fld, tol = 0.001)
 \arguments{
 \item{epsilon}{Fluctuation parameter}
 
-\item{fld}{full_long_data_list}
+\item{fld}{The \code{full_long_data_list} object created}
 
 \item{tol}{Tolerance on predictions close to 0 or 1}
 }

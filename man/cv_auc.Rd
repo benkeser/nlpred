@@ -2,7 +2,8 @@
 % Please edit documentation in R/auc_functions.R
 \name{cv_auc}
 \alias{cv_auc}
-\title{Cross-validated area under the receiver operating characteristics curve (AUC)}
+\title{Estimate the cross-validated area under the receiver operating characteristics 
+curve (AUC)}
 \usage{
 cv_auc(Y, X, K = 10, learner = "glm_wrapper", nested_cv = TRUE,
   nested_K = K - 1, parallel = FALSE, max_cvtmle_iter = 10,
@@ -43,7 +44,32 @@ that has a format compatible with \code{cvauc}.}
 \item{...}{Other arguments, not currently used}
 }
 \value{
-A list TO DO: More documentation here
+An object of class \code{"cvauc"}. \describe{
+\item{\code{est_cvtmle}}{cross-validated targeted minimum loss-based estimator of K-fold CV AUC}
+\item{\code{iter_cvtmle}}{iterations needed to achieve convergence of CVTMLE algorithm}
+\item{\code{cvtmle_trace}}{the value of the CVTMLE at each iteration of the targeting algorithm}
+\item{\code{se_cvtmle}}{estimated standard error based on targeted nuisance parameters}
+\item{\code{est_init}}{plug-in estimate of CV AUC where nuisance parameters are estimated
+in the training sample}
+\item{\code{est_empirical}}{the standard K-fold CV AUC estimator}
+\item{\code{se_empirical}}{estimated standard error for the standard estimator}
+\item{\code{est_onestep}}{cross-validated one-step estimate of K-fold CV AUC}
+\item{\code{se_onestep}}{estimated standard error for the one-step estimator}
+\item{\code{est_esteq}}{cross-validated estimating equations estimate of K-fold CV AUC}
+\item{\code{se_esteq}}{estimated standard error for the estimating equations estimator 
+(same as for one-step)}
+\item{\code{folds}}{list of observation indexes in each validation fold}
+\item{\code{ic_cvtmle}}{influence function evaluated at the targeted nuisance parameter
+estimates}
+\item{\code{ic_onestep}}{influence function evaluated at the training-fold-estimated
+nuisance parameters}
+\item{\code{ic_esteq}}{influence function evaluated at the training-fold-estimated 
+nuisance parameters}
+\item{\code{ic_empirical}}{influence function evaluated at the validation-fold 
+estimated nuisance parameters}
+\item{\code{prediction_list}}{a list of output from the cross-validated model training; 
+see the individual wrapper function documentation for further details}
+}
 }
 \description{
 This function computes K-fold cross-validated estimates of the area under
@@ -53,15 +79,33 @@ case will have higher predicted risk than a randomly selected control.
 }
 \details{
 To estimate the AUC of a particular prediction algorithm, K-fold cross-validation
-is commonly used. The data are partitioned into K distinct groups. The 
+is commonly used: data are partitioned into K distinct groups and the
 prediction algorithm is developed using K-1 of these groups. In standard K-fold
 cross-validation, the AUC of this prediction algorithm is estimated using
-the remaining fold
+the remaining fold. This can be problematic when the number of observations is 
+small or the number of cross-validation folds is large.
+
+Here, we estimate relevant nuisance parameters in the training sample and use
+the validation sample to perform some form of bias correction -- either through
+cross-validated targeted minimum loss-based estimation, estimating equations, 
+or one-step estimation. When aggressive learning algorithms are applied, it is
+necessary to use an additional layer of cross-validation in the training sample
+to estimate the nuisance parameters. This is controlled via the \code{nested_cv}
+option below.
 }
 \examples{
+# simulate data
 n <- 200
 p <- 10
 X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
 Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
-fit <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
+
+# get cv auc estimates for logistic regression
+cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
+
+# get cv auc estimates for random forest
+# using nested cross-validation for nuisance parameter estimation
+# fit <- cv_auc(Y = Y, X = X, K = 5, 
+                learner = "randomforest_wrapper", 
+                nested_cv = TRUE)
 }

@@ -9,19 +9,19 @@ Depends:
 Imports:
 	stats,
 	utils,
-	testthat,
 	SuperLearner,
 	cvAUC,
 	ROCR,
 	Rdpack,
 	bde,
 	np,
+	assertthat
+Suggests:
+	testthat,
 	randomForest,
 	ranger,
 	xgboost,
-	dbarts,
 	glmnet,
-	assertthat
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
