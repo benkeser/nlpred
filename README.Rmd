@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 > Small-sample optimized estimators of cross-validated prediction metrics
 
-__Authors:__ [David Benkeser](https://www.benkeserstatistics.com/) 
+[David Benkeser](https://www.benkeserstatistics.com/) 
 
 ---
 
@@ -54,6 +54,50 @@ devtools::install_github("benkeser/nlpred")
 
 ## Usage
 
+The main functions in the package are `cv_auc` and `cv_scrnp`, which are used to 
+compute, respectively, the `K`-fold [cross-validated area under the receiver operating
+characteristics curve](http://projecteuclid.org/euclid.ejs/1437742107) (CVAUC) and 
+the `K`-fold cross-validated [sensitivity constrained rate of negative prediction](https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.7296). However, rather than using
+standard cross-validation estimators (where prediction algorithms are developed in a 
+training sample and AUC/SCRNP estimated using the validation sample), we instead use
+techniques from efficiency theory to estimate these quantities. This allows us to use
+the training data both to develop the prediction algorithm, *as well as* key nuisance 
+parameters needed to evaluate AUC/SCRNP. By reserving more data for estimation of these
+key parameters, we obtain improved performance in small samples. 
+
+```{r}
+# load package
+library(nlpred)
+
+# simulate data
+n <- 200
+p <- 10
+X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
+Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
+
+# get cv auc estimates for logistic regression
+logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
+logistic_cv_auc_ests
+
+# get cv auc estimates for random forest using nested 
+# cross-validation for nuisance parameter estimation. nested
+# cross-validation is unfortunately necessary when aggressive learners 
+# are used. 
+rf_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, 
+						 learner = "randomforest_wrapper", 
+						 nested_cv = TRUE)
+rf_cv_auc_ests
+
+# same examples for scrnp
+logistic_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, learner = "glm_wrapper")
+logistic_cv_scrnp_ests
+
+
+rf_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
+						 learner = "randomforest_wrapper", 
+						 nested_cv = TRUE)
+rf_cv_scrnp_ests
+```
 
 ---
 

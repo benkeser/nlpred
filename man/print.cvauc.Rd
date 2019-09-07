@@ -4,12 +4,14 @@
 \alias{print.cvauc}
 \title{Print results of cv_auc}
 \usage{
-\method{print}{cvauc}(x, ci_level = 0.95, ...)
+\method{print}{cvauc}(x, ci_level = 0.95, se_type = "std", ...)
 }
 \arguments{
 \item{x}{An object of class "cvauc"}
 
 \item{ci_level}{Level of confidence interval to print. Defaults to 0.95.}
+
+\item{se_type}{The type of standard error (currently only "std")}
 
 \item{...}{Other options (not currently used)}
 }

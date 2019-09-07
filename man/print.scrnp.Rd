@@ -4,10 +4,12 @@
 \alias{print.scrnp}
 \title{Print results of cv_scrnp}
 \usage{
-\method{print}{scrnp}(x, ci_level = 0.95, ...)
+\method{print}{scrnp}(x, se_type = "std", ci_level = 0.95, ...)
 }
 \arguments{
 \item{x}{An object of class "cvauc"}
+
+\item{se_type}{The type of standard error (currently only "std")}
 
 \item{ci_level}{Level of confidence interval to print. Defaults to 0.95.}
 
