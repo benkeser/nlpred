@@ -2,10 +2,10 @@ context("Testing scrnp functions")
 
 test_that("scrnp returns numerics", {
   set.seed(123)
-  n <- 50
+  n <- 100
   p <- 1
   X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
-  Y <- rbinom(n, 1, plogis(X[,1]))
+  Y <- rbinom(n, 1, plogis(0.2 * X[,1]))
   # try without nested cv
   set.seed(123)
   fit1 <- cv_scrnp(Y = Y, X = data.frame(X), K = 3, nested_cv = FALSE, learner = "glm_wrapper")

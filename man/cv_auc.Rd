@@ -16,7 +16,8 @@ cv_auc(Y, X, K = 10, learner = "glm_wrapper", nested_cv = TRUE,
 \item{K}{The number of cross-validation folds (default is \code{10}).}
 
 \item{learner}{A wrapper that implements the desired method for building a 
-prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING}
+prediction algorithm. See See \code{?glm_wrapper} or read the package vignette
+for more information on formatting \code{learner}s.}
 
 \item{nested_cv}{A boolean indicating whether nested cross validation should
 be used to estimate the distribution of the prediction function. Default (\code{TRUE})

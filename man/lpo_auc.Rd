@@ -13,7 +13,8 @@ lpo_auc(Y, X, learner = "glm_wrapper", max_pairs = NULL,
 \item{X}{A \code{data.frame} of variables for prediction.}
 
 \item{learner}{A wrapper that implements the desired method for building a 
-prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING}
+prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+for more information on formatting \code{learner}s.}
 
 \item{max_pairs}{The maximum number of pairs to leave out.}
 

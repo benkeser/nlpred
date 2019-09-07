@@ -15,7 +15,8 @@ boot_scrnp(Y, X, B = 200, learner = "glm_wrapper", sens = 0.95,
 \item{B}{The number of bootstrap samples.}
 
 \item{learner}{A wrapper that implements the desired method for building a 
-prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING}
+prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+for more information on formatting \code{learner}s.}
 
 \item{sens}{The sensitivity constraint to use.}
 

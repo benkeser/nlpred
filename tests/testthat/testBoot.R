@@ -2,10 +2,10 @@ context("Testing bootstrap functions")
 
 test_that("auc boot functions", {
   set.seed(123)
-  n <- 50
+  n <- 100
   p <- 1
   X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
-  Y <- rbinom(n, 1, plogis(X[,1]))
+  Y <- rbinom(n, 1, plogis(0.2 * X[,1]))
 
   boot1 <- boot_auc(Y = Y, X = X, B = 10)
   boot2 <- boot_auc(Y = Y, X = X, B = 10, correct632 = TRUE)
@@ -20,10 +20,10 @@ test_that("auc boot functions", {
 
 test_that("scrnp boot functions", {
   set.seed(123)
-  n <- 50
+  n <- 100
   p <- 1
   X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
-  Y <- rbinom(n, 1, plogis(X[,1]))
+  Y <- rbinom(n, 1, plogis(0.2 * X[,1]))
 
   boot1 <- boot_scrnp(Y = Y, X = X, B = 10)
   boot2 <- boot_scrnp(Y = Y, X = X, B = 10, correct632 = TRUE)

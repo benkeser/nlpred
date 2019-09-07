@@ -15,7 +15,8 @@ boot_auc(Y, X, B = 500, learner = "glm_wrapper", correct632 = FALSE,
 \item{B}{The number of bootstrap samples.}
 
 \item{learner}{A wrapper that implements the desired method for building a 
-prediction algorithm. See TODO: ADD DOCUMENTATION FOR WRITING}
+prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+for more information on formatting \code{learner}s.}
 
 \item{correct632}{A boolean indicating whether to use the .632 correction.}
 
