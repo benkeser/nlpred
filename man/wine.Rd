@@ -53,6 +53,6 @@ Output variable (based on sensory data):
 \references{
 P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
-\url{https://www.sciencedirect.com/science/article/pii/S0167923609001377?via\%3Dihub}
+\url{https://doi.org/10.1016/j.dss.2009.05.016}
 }
 \keyword{data}
