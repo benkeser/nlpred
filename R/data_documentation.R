@@ -368,7 +368,7 @@ NULL
 #' 
 #' @source \url{https://archive.ics.uci.edu/ml/datasets/Wine+Quality}
 #' @references P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009. 
-#' @references \url{https://www.sciencedirect.com/science/article/pii/S0167923609001377?via\%3Dihub}
+#' @references \url{https://doi.org/10.1016/j.dss.2009.05.016}
 #' @name wine
 #' @keywords data
 #' @docType data
