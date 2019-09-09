@@ -1,8 +1,8 @@
 Package: nlpred
-Title: Small sample estimators of cross-validated prediction metrics
+Title: Small sample estimators of non-linear cross-validated risks
 Version: 1.0.0
 Authors@R: person("David", "Benkeser", email = "benkeser@emory.edu", role = c("aut", "cre"))
-Description: Functions to create improved cross-validated estimates of prediction metrics based on cross-validated targeted minimum loss-based estimation, estimating equations, and one-step estimation.
+Description: Methods for obtaining improved estimates of non-linear cross-validated risks are obtained using targeted minimum loss-based estimation, estimating equations, and one-step estimation. Cross-validated area under the receiver operating characteristics curve (LeDell et al (2015), <doi:10.1214/15-EJS1035>) and other metrics are included.
 Depends: 
 	R (>= 3.2.0),
 	data.table
