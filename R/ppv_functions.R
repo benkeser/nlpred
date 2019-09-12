@@ -557,7 +557,6 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
 #' for more information on formatting \code{learner}s.
 #' @param sens The sensitivity constraint to use. 
-#' @param n Number of observations
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 
 #' @return A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP and
@@ -619,6 +618,7 @@ boot_scrnp <- function(Y, X, B = 200, learner = "glm_wrapper",
 #' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
 #' for more information on formatting \code{learner}s.
 #' @param sens The sensitivity constraint to use. 
+#' @param n Number of observations
 #' @return If \code{learner} executes successfully, a numeric estimate of AUC
 #' on this bootstrap sample. Otherwise the function returns \code{NA}.
 one_boot_scrnp <- function(Y, X, n, correct632, learner, sens){

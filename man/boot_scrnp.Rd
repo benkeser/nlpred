@@ -23,8 +23,6 @@ for more information on formatting \code{learner}s.}
 \item{correct632}{A boolean indicating whether to use the .632 correction.}
 
 \item{...}{Other options, not currently used.}
-
-\item{n}{Number of observations}
 }
 \value{
 A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP and
