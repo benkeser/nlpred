@@ -1286,6 +1286,7 @@ boot_auc <- function(Y, X, B = 500, learner = "glm_wrapper", correct632 = FALSE,
 #' @param learner A wrapper that implements the desired method for building a 
 #' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
 #' for more information on formatting \code{learner}s.
+#' @param n Number of observations
 #' @return If \code{learner} executes successfully, a numeric estimate of AUC
 #' on this bootstrap sample. Otherwise the function returns \code{NA}.
 one_boot_auc <- function(Y, X, n, correct632, learner){

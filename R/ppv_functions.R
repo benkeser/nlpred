@@ -557,6 +557,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
 #' for more information on formatting \code{learner}s.
 #' @param sens The sensitivity constraint to use. 
+#' @param n Number of observations
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 
 #' @return A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP and

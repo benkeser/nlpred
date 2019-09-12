@@ -15,6 +15,8 @@ one_boot_auc(Y, X, n, correct632, learner)
 
 \item{X}{A \code{data.frame} of variables for prediction.}
 
+\item{n}{Number of observations}
+
 \item{correct632}{A boolean indicating whether to use the .632 correction.}
 
 \item{learner}{A wrapper that implements the desired method for building a 
