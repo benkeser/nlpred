@@ -6,7 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute the bootstrap-corrected estimator of AUC. — boot_auc • nlpred</title>
+<title>Internal function used to perform one bootstrap sample. The function
+<code>try</code>s to fit <code>learner</code> on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with <code>Y = 1</code>) 
+the learner fails, then the function returns <code>NA</code>. These <code>NA</code>s 
+are ignored later when computing the bootstrap corrected estimate. — one_boot_scrnp • nlpred</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,15 +34,17 @@
 
 
 
-<meta property="og:title" content="Compute the bootstrap-corrected estimator of AUC. — boot_auc" />
+<meta property="og:title" content="Internal function used to perform one bootstrap sample. The function
+<code>try</code>s to fit <code>learner</code> on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with <code>Y = 1</code>) 
+the learner fails, then the function returns <code>NA</code>. These <code>NA</code>s 
+are ignored later when computing the bootstrap corrected estimate. — one_boot_scrnp" />
 
-<meta property="og:description" content="This estimator is computed by re-sampling with replacement (i.e., bootstrap
-sampling) from the data. The AUC is computed for the learner trained on the 
-full data. The AUC is then computed for the learner trained on each bootstrap
-sample. The average difference between the full data-trained learner and 
-the bootstrap-trained learner is computed to estimate the bias in the full-data-estimated
-AUC. The final estimate of AUC is given by the difference in the full-data AUC 
-and the estimated bias." />
+<meta property="og:description" content="Internal function used to perform one bootstrap sample. The function
+trys to fit learner on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with Y = 1) 
+the learner fails, then the function returns NA. These NAs 
+are ignored later when computing the bootstrap corrected estimate." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,40 +121,41 @@ and the estimated bias." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute the bootstrap-corrected estimator of AUC.</h1>
+    <h1>Internal function used to perform one bootstrap sample. The function
+<code>try</code>s to fit <code>learner</code> on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with <code>Y = 1</code>) 
+the learner fails, then the function returns <code>NA</code>. These <code>NA</code>s 
+are ignored later when computing the bootstrap corrected estimate.</h1>
     
-    <div class="hidden name"><code>boot_auc.Rd</code></div>
+    <div class="hidden name"><code>one_boot_scrnp.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This estimator is computed by re-sampling with replacement (i.e., bootstrap
-sampling) from the data. The AUC is computed for the learner trained on the 
-full data. The AUC is then computed for the learner trained on each bootstrap
-sample. The average difference between the full data-trained learner and 
-the bootstrap-trained learner is computed to estimate the bias in the full-data-estimated
-AUC. The final estimate of AUC is given by the difference in the full-data AUC 
-and the estimated bias.</p>
+    <p>Internal function used to perform one bootstrap sample. The function
+<code>try</code>s to fit <code>learner</code> on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with <code>Y = 1</code>) 
+the learner fails, then the function returns <code>NA</code>. These <code>NA</code>s 
+are ignored later when computing the bootstrap corrected estimate.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>boot_auc</span>(<span class='no'>Y</span>, <span class='no'>X</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>learner</span> <span class='kw'>=</span> <span class='st'>"glm_wrapper"</span>, <span class='kw'>correct632</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>one_boot_scrnp</span>(<span class='no'>Y</span>, <span class='no'>X</span>, <span class='no'>n</span>, <span class='no'>correct632</span>, <span class='no'>learner</span>, <span class='no'>sens</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>Y</th>
-      <td><p>A numeric vector of outcomes, assume to equal <code>0</code> or <code>1</code>.</p></td>
+      <td><p>A numeric binary outcome</p></td>
     </tr>
     <tr>
       <th>X</th>
       <td><p>A <code>data.frame</code> of variables for prediction.</p></td>
     </tr>
     <tr>
-      <th>B</th>
-      <td><p>The number of bootstrap samples.</p></td>
+      <th>correct632</th>
+      <td><p>A boolean indicating whether to use the .632 correction.</p></td>
     </tr>
     <tr>
       <th>learner</th>
@@ -157,29 +164,17 @@ prediction algorithm. See <code><a href='glm_wrapper.html'>?glm_wrapper</a></cod
 for more information on formatting <code>learner</code>s.</p></td>
     </tr>
     <tr>
-      <th>correct632</th>
-      <td><p>A boolean indicating whether to use the .632 correction.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other options, not currently used.</p></td>
+      <th>sens</th>
+      <td><p>The sensitivity constraint to use.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list with <code>$auc</code> as the bootstrap-corrected AUC estimate and 
-<code>$n_valid_boot</code> as the number of bootstrap of bootstrap samples where <code>learner</code> 
-successfully executed.</p>
+    <p>If <code>learner</code> executes successfully, a numeric estimate of AUC
+on this bootstrap sample. Otherwise the function returns <code>NA</code>.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># simulate data</span>
-<span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>))
-<span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Binomial'>rbinom</a></span>(<span class='fl'>50</span>, <span class='fl'>1</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Logistic'>plogis</a></span>(<span class='no'>X</span>$<span class='no'>x1</span>))
-<span class='co'># compute lpo_auc for logistic regression </span>
-<span class='co'># use small B for fast run</span>
-<span class='no'>boot</span> <span class='kw'>&lt;-</span> <span class='fu'>boot_auc</span>(<span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>learner</span> <span class='kw'>=</span> <span class='st'>"glm_wrapper"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -187,9 +182,7 @@ successfully executed.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

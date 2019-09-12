@@ -25,7 +25,9 @@ for more information on formatting \code{learner}s.}
 \item{...}{Other options, not currently used.}
 }
 \value{
-A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP.
+A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP and
+\code{$n_valid_boot} as the number of bootstrap of bootstrap samples where \code{learner} 
+successfully executed.
 }
 \description{
 This estimator is computed by re-sampling with replacement (i.e., bootstrap

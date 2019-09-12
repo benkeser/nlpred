@@ -8,7 +8,7 @@
 the learner fails, then the function returns \code{NA}. These \code{NA}s 
 are ignored later when computing the bootstrap corrected estimate.}
 \usage{
-one_boot_scrnp(Y, X, n, correct632, learner)
+one_boot_scrnp(Y, X, n, correct632, learner, sens)
 }
 \arguments{
 \item{Y}{A numeric binary outcome}
@@ -20,6 +20,8 @@ one_boot_scrnp(Y, X, n, correct632, learner)
 \item{learner}{A wrapper that implements the desired method for building a 
 prediction algorithm. See \code{?glm_wrapper} or read the package vignette
 for more information on formatting \code{learner}s.}
+
+\item{sens}{The sensitivity constraint to use.}
 }
 \value{
 If \code{learner} executes successfully, a numeric estimate of AUC

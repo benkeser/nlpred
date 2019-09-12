@@ -559,7 +559,9 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param sens The sensitivity constraint to use. 
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 
-#' @return A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP.
+#' @return A list with \code{$scrnp} the bootstrap-corrected estimate of SCRNP and
+#' \code{$n_valid_boot} as the number of bootstrap of bootstrap samples where \code{learner} 
+#' successfully executed.
 #' @export
 #' @examples 
 #' # simulate data
@@ -579,7 +581,8 @@ boot_scrnp <- function(Y, X, B = 200, learner = "glm_wrapper",
 
   all_boot <- replicate(B, one_boot_scrnp(Y = Y, X = X, n = n, 
                                           correct632 = correct632,
-                                          learner = learner))
+                                          learner = learner, 
+                                          sens = sens))
   
   if(!correct632){  
     mean_optimism <- mean(all_boot, na.rm = TRUE)
@@ -600,7 +603,7 @@ boot_scrnp <- function(Y, X, B = 200, learner = "glm_wrapper",
     # weighted estimate
     corrected_est <- (1 - w)*full_est + w * scrnp_b
   }
-  return(list(scrnp = corrected_est))
+  return(list(scrnp = corrected_est, n_valid_boot = sum(!is.na(all_boot))))
 }
 
 #' Internal function used to perform one bootstrap sample. The function
@@ -614,9 +617,10 @@ boot_scrnp <- function(Y, X, B = 200, learner = "glm_wrapper",
 #' @param learner A wrapper that implements the desired method for building a 
 #' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
 #' for more information on formatting \code{learner}s.
+#' @param sens The sensitivity constraint to use. 
 #' @return If \code{learner} executes successfully, a numeric estimate of AUC
 #' on this bootstrap sample. Otherwise the function returns \code{NA}.
-one_boot_scrnp <- function(Y, X, n, correct632, learner){
+one_boot_scrnp <- function(Y, X, n, correct632, learner, sens){
   idx <- sample(seq_len(n), replace = TRUE)
   train_Y <- Y[idx]
   train_X <- X[idx, , drop = FALSE]

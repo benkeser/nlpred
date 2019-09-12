@@ -1230,7 +1230,8 @@ lpo_auc <- function(Y, X, learner = "glm_wrapper",
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 
 #' @return A list with \code{$auc} as the bootstrap-corrected AUC estimate and 
-#' \code{$n_valid_boot} as the number of bootstrap samples that were fit correctly.
+#' \code{$n_valid_boot} as the number of bootstrap of bootstrap samples where \code{learner} 
+#' successfully executed.
 #' @export
 #' @examples 
 #' # simulate data

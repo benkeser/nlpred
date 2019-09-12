@@ -263,10 +263,11 @@ option below.</p>
                        <span class='kw'>learner</span> <span class='kw'>=</span> <span class='st'>"glm_wrapper"</span>)
 
 <span class='co'># estimate cv scrnp of random forest with nested </span>
-<span class='co'># cross-validation for nuisance parameter estimation</span>
-<span class='co'># scrnp_ests &lt;- cv_scrnp(Y = Y, X = X, K = 5, </span>
-<span class='co'>#                        nested_cv = TRUE, </span>
-<span class='co'>#                        learner = "randomforest_wrapper")</span></div></pre>
+<span class='co'># cross-validation for nuisance parameter estimation</span></div><span class='co'># NOT RUN {</span>
+<span class='no'>scrnp_ests</span> <span class='kw'>&lt;-</span> <span class='fu'>cv_scrnp</span>(<span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+                       <span class='kw'>nested_cv</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                       <span class='kw'>learner</span> <span class='kw'>=</span> <span class='st'>"randomforest_wrapper"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

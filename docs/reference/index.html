@@ -325,6 +325,26 @@ CVTMLE targeting step when nested cv is used</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="one_boot_auc.html">one_boot_auc()</a></code> </p>
+        </td>
+        <td><p>Internal function used to perform one bootstrap sample. The function
+<code>try</code>s to fit <code>learner</code> on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with <code>Y = 1</code>) 
+the learner fails, then the function returns <code>NA</code>. These <code>NA</code>s 
+are ignored later when computing the bootstrap corrected estimate.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="one_boot_scrnp.html">one_boot_scrnp()</a></code> </p>
+        </td>
+        <td><p>Internal function used to perform one bootstrap sample. The function
+<code>try</code>s to fit <code>learner</code> on a bootstrap sample. If for some reason
+(e.g., the bootstrap sample contains no observations with <code>Y = 1</code>) 
+the learner fails, then the function returns <code>NA</code>. These <code>NA</code>s 
+are ignored later when computing the bootstrap corrected estimate.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="print.cvauc.html">print(<i>&lt;cvauc&gt;</i>)</a></code> </p>
         </td>
         <td><p>Print results of cv_auc</p></td>
