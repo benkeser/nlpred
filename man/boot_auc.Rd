@@ -23,7 +23,8 @@ for more information on formatting \code{learner}s.}
 \item{...}{Other options, not currently used.}
 }
 \value{
-A list with \code{$auc} as the bootstrap-corrected AUC estimate
+A list with \code{$auc} as the bootstrap-corrected AUC estimate and 
+\code{$n_valid_boot} as the number of bootstrap samples that were fit correctly.
 }
 \description{
 This estimator is computed by re-sampling with replacement (i.e., bootstrap

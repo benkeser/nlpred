@@ -91,9 +91,11 @@ utils::globalVariables(c(":="))
 #' 
 #' # get cv auc estimates for random forest
 #' # using nested cross-validation for nuisance parameter estimation
-#' # fit <- cv_auc(Y = Y, X = X, K = 5, 
-#' #               learner = "randomforest_wrapper", 
-#' #               nested_cv = TRUE)
+#' \dontrun{
+#' fit <- cv_auc(Y = Y, X = X, K = 5, 
+#'               learner = "randomforest_wrapper", 
+#'               nested_cv = TRUE)
+#' }
 
 cv_auc <- function(Y, X, K = 10, learner = "glm_wrapper", 
                   nested_cv = TRUE,
@@ -1227,7 +1229,8 @@ lpo_auc <- function(Y, X, learner = "glm_wrapper",
 #' for more information on formatting \code{learner}s.
 #' @param correct632 A boolean indicating whether to use the .632 correction.
 #' @param ... Other options, not currently used. 
-#' @return A list with \code{$auc} as the bootstrap-corrected AUC estimate
+#' @return A list with \code{$auc} as the bootstrap-corrected AUC estimate and 
+#' \code{$n_valid_boot} as the number of bootstrap samples that were fit correctly.
 #' @export
 #' @examples 
 #' # simulate data
@@ -1244,40 +1247,9 @@ boot_auc <- function(Y, X, B = 500, learner = "glm_wrapper", correct632 = FALSE,
                                       test = list(Y = Y, X = X)))
   naive_auc <- cvAUC::cvAUC(predictions = full_fit$test_pred,
                             labels = Y)$cvAUC
-  # function that returns optimism is not correct632, otherwise returns 
-  # oob auc
-  one_boot <- function(Y, X, n, correct632){
-    idx <- sample(seq_len(n), replace = TRUE)
-    train_y <- Y[idx]
-    train_X <- X[idx, , drop = FALSE]
-    fit <- tryCatch({
-      do.call(learner, args=list(train = list(Y = train_y, X = train_X),
-                                      test = list(Y = Y, X = X)))
-    }, error = function(e){
-      return(NA)
-    })
-    if(!(class(fit) == "logical")){
-      if(!correct632){
-        train_cvauc <- tryCatch({cvAUC::cvAUC(predictions = fit$train_pred,
-                                labels = train_y)$cvAUC}, error = function(e){
-                                  return(NA)})
-        test_cvauc <- tryCatch({cvAUC::cvAUC(predictions = fit$test_pred,
-                                labels = Y)$cvAUC}, error = function(e){
-                                  return(NA)})
-        out <- train_cvauc - test_cvauc
-      }else{
-        # compute auc on held-out observations
-        oob_idx <- which(!(1:n %in% idx))
-        out <- tryCatch({cvAUC::cvAUC(predictions = fit$test_pred[oob_idx],
-                                labels = Y[oob_idx])$cvAUC}, error = function(e){
-                                  return(NA)})
-      }
-      return(out)
-    }else{
-      return(NA)
-    }
-  }
-  all_boot <- replicate(B, one_boot(Y = Y, X = X, n = n, correct632 = correct632))
+  all_boot <- replicate(B, one_boot_auc(Y = Y, X = X, n = n, 
+                                        correct632 = correct632,
+                                        learner = learner))
   if(!correct632){
     mean_optimism <- mean(all_boot, na.rm = TRUE)
     corrected_auc <- naive_auc - mean_optimism
@@ -1299,5 +1271,50 @@ boot_auc <- function(Y, X, B = 500, learner = "glm_wrapper", correct632 = FALSE,
     corrected_auc <- (1 - w)*naive_auc + w * auc_b
   }
 
-  return(list(auc = corrected_auc))
+  return(list(auc = corrected_auc, n_valid_boot = sum(!is.na(all_boot))))
+}
+
+#' Internal function used to perform one bootstrap sample. The function
+#' \code{try}s to fit \code{learner} on a bootstrap sample. If for some reason
+#' (e.g., the bootstrap sample contains no observations with \code{Y = 1}) 
+#' the learner fails, then the function returns \code{NA}. These \code{NA}s 
+#' are ignored later when computing the bootstrap corrected estimate. 
+#' @param Y A numeric binary outcome
+#' @param X A \code{data.frame} of variables for prediction.
+#' @param correct632 A boolean indicating whether to use the .632 correction.
+#' @param learner A wrapper that implements the desired method for building a 
+#' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+#' for more information on formatting \code{learner}s.
+#' @return If \code{learner} executes successfully, a numeric estimate of AUC
+#' on this bootstrap sample. Otherwise the function returns \code{NA}.
+one_boot_auc <- function(Y, X, n, correct632, learner){
+  idx <- sample(seq_len(n), replace = TRUE)
+  train_y <- Y[idx]
+  train_X <- X[idx, , drop = FALSE]
+  fit <- tryCatch({
+    do.call(learner, args=list(train = list(Y = train_y, X = train_X),
+                                    test = list(Y = Y, X = X)))
+  }, error = function(e){
+    return(NA)
+  })
+  if(!(class(fit) == "logical")){
+    if(!correct632){
+      train_cvauc <- tryCatch({cvAUC::cvAUC(predictions = fit$train_pred,
+                              labels = train_y)$cvAUC}, error = function(e){
+                                return(NA)})
+      test_cvauc <- tryCatch({cvAUC::cvAUC(predictions = fit$test_pred,
+                              labels = Y)$cvAUC}, error = function(e){
+                                return(NA)})
+      out <- train_cvauc - test_cvauc
+    }else{
+      # compute auc on held-out observations
+      oob_idx <- which(!(1:n %in% idx))
+      out <- tryCatch({cvAUC::cvAUC(predictions = fit$test_pred[oob_idx],
+                              labels = Y[oob_idx])$cvAUC}, error = function(e){
+                                return(NA)})
+    }
+    return(out)
+  }else{
+    return(NA)
+  }
 }

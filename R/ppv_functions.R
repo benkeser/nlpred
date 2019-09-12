@@ -90,9 +90,11 @@
 #' 
 #' # estimate cv scrnp of random forest with nested 
 #' # cross-validation for nuisance parameter estimation
-#' # scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
-#' #                        nested_cv = TRUE, 
-#' #                        learner = "randomforest_wrapper")
+#' \dontrun{
+#' scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
+#'                        nested_cv = TRUE, 
+#'                        learner = "randomforest_wrapper")
+#' }
 
 cv_scrnp <- function(Y, X, K = 10, sens = 0.95, 
                      learner = "glm_wrapper", 
@@ -575,34 +577,9 @@ boot_scrnp <- function(Y, X, B = 200, learner = "glm_wrapper",
   full_c0 <- quantile(full_fit$test_pred[full_fit$train_y == 1], p = 1 - sens)
   full_est <- mean(full_fit$test_pred <= full_c0)
 
-  one_boot <- function(Y, X, n, correct632){
-    idx <- sample(seq_len(n), replace = TRUE)
-    train_Y <- Y[idx]
-    train_X <- X[idx, , drop = FALSE]
-    fit <- tryCatch({
-      do.call(learner, args=list(train = list(Y = train_Y, X = train_X),
-                                      test = list(Y = Y, X = X)))
-    }, error = function(e){
-      return(NA)
-    })
-    if(!(class(fit) == "logical")){
-      if(!correct632){
-        train_c0 <- quantile(fit$train_pred[fit$train_y == 1], p = 1 - sens)
-        test_c0 <- quantile(fit$test_pred[fit$test_y == 1], p = 1 - sens)
-        train_est <- mean(fit$train_pred <= train_c0)
-        test_est <- mean(fit$test_pred <= test_c0)
-        out <- train_est - test_est
-      }else{
-        oob_idx <- which(!(1:n %in% idx))
-        oob_c0 <- quantile(fit$test_pred[oob_idx][fit$train_y[oob_idx] == 1], p = 1 - sens)
-        out <- mean(fit$test_pred[oob_idx] <= oob_c0)
-      }
-      return(out)
-    }else{
-      return(NA)
-    }
-  }
-  all_boot <- replicate(B, one_boot(Y = Y, X = X, n = n, correct632 = correct632))
+  all_boot <- replicate(B, one_boot_scrnp(Y = Y, X = X, n = n, 
+                                          correct632 = correct632,
+                                          learner = learner))
   
   if(!correct632){  
     mean_optimism <- mean(all_boot, na.rm = TRUE)
@@ -626,55 +603,44 @@ boot_scrnp <- function(Y, X, B = 200, learner = "glm_wrapper",
   return(list(scrnp = corrected_est))
 }
 
-# MC averaged functions commented out for now. 
-# #' @param result_list A list of cvtn_cvtmle objects
-# #' @export
-# .getMCAveragedResults <- function(result_list, logit = TRUE,
-#                                   estimators = c("cvtmle","onestep","empirical")){
-#   estimates <- colMeans(Reduce(rbind,lapply(result_list, function(x){
-#       unlist(x[grep("est_", names(x))])
-#   })))
-
-#   se <- mapply(which_estimator = estimators, 
-#                estimate = estimates[paste0("est_",estimators)], .computeMCSE, 
-#                MoreArgs = list(result_list = result_list, logit = logit))
-#   out <- list()
-#   out$est_cvtmle <- estimates["est_cvtmle"]
-#   out$est_onestep <- estimates["est_onestep"]
-#   out$est_init <- estimates["est_init"]
-#   out$est_esteq <- estimates["est_esteq"]
-#   out$est_empirical <- estimates["est_empirical"]
-#   out$se_cvtmle <- se["cvtmle"]
-#   out$se_onestep <- se["onestep"]
-#   out$se_esteq <- se["onestep"]
-#   out$se_empirical <- se["empirical"]  
-#   out$se_cvtmle_type <- ifelse(logit, "logit", "std")
-#   out$se_onestep_type <- ifelse(estimates["est_onestep"] >= 0 & estimates["est_onestep"] <= 1 & logit, "logit", "std")
-#   out$se_esteq_type <- out$se_onestep_type
-#   out$se_empirical_type <- ifelse(logit, "logit", "std")
-
-#   class(out) <- "cvauc"
-#   return(out)
-# }
-
-# .computeMCSE <- function(which_estimator = "cvtmle", estimate, result_list, logit = TRUE){
-#   if(!any(is.na(estimate))){
-#     icMatrix <- Reduce(cbind, lapply(result_list, "[[", paste0("ic_", which_estimator)))
-#     covar <- cov(icMatrix)
-#     B <- length(result_list)
-#     a <- matrix(1/B, nrow = B, ncol = 1)
-#     if(estimate <= 0 | estimate >= 1){
-#       logit <- FALSE
-#     }
-#     if(!logit){
-#         se <- sqrt( t(a) %*% covar %*% a / dim(icMatrix)[2])
-#     }else{
-#       g <- 1 / (estimate - estimate^2)
-#       se <- sqrt( g^2 * t(a) %*% covar %*% a / dim(icMatrix)[2] )
-#     }
-#   }else{
-#     se <- NA    
-#   }
-#   return(se)
-# }
-
+#' Internal function used to perform one bootstrap sample. The function
+#' \code{try}s to fit \code{learner} on a bootstrap sample. If for some reason
+#' (e.g., the bootstrap sample contains no observations with \code{Y = 1}) 
+#' the learner fails, then the function returns \code{NA}. These \code{NA}s 
+#' are ignored later when computing the bootstrap corrected estimate. 
+#' @param Y A numeric binary outcome
+#' @param X A \code{data.frame} of variables for prediction.
+#' @param correct632 A boolean indicating whether to use the .632 correction.
+#' @param learner A wrapper that implements the desired method for building a 
+#' prediction algorithm. See \code{?glm_wrapper} or read the package vignette
+#' for more information on formatting \code{learner}s.
+#' @return If \code{learner} executes successfully, a numeric estimate of AUC
+#' on this bootstrap sample. Otherwise the function returns \code{NA}.
+one_boot_scrnp <- function(Y, X, n, correct632, learner){
+  idx <- sample(seq_len(n), replace = TRUE)
+  train_Y <- Y[idx]
+  train_X <- X[idx, , drop = FALSE]
+  fit <- tryCatch({
+    do.call(learner, args=list(train = list(Y = train_Y, X = train_X),
+                               test = list(Y = Y, X = X)))
+  }, error = function(e){
+    return(NA)
+  })
+  if(!(class(fit) == "logical")){
+    if(!correct632){
+      train_c0 <- stats::quantile(fit$train_pred[fit$train_y == 1], p = 1 - sens)
+      test_c0 <- stats::quantile(fit$test_pred[fit$test_y == 1], p = 1 - sens)
+      train_est <- mean(fit$train_pred <= train_c0)
+      test_est <- mean(fit$test_pred <= test_c0)
+      out <- train_est - test_est
+    }else{
+      oob_idx <- which(!(1:n %in% idx))
+      oob_c0 <- stats::quantile(fit$test_pred[oob_idx][fit$train_y[oob_idx] == 1], 
+                                p = 1 - sens)
+      out <- mean(fit$test_pred[oob_idx] <= oob_c0)
+    }
+    return(out)
+  }else{
+    return(NA)
+  }
+}
