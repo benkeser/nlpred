@@ -91,7 +91,7 @@ utils::globalVariables(c(":="))
 #' 
 #' # get cv auc estimates for random forest
 #' # using nested cross-validation for nuisance parameter estimation
-#' \dontrun{
+#' \donttest{
 #' fit <- cv_auc(Y = Y, X = X, K = 5, 
 #'               learner = "randomforest_wrapper", 
 #'               nested_cv = TRUE)

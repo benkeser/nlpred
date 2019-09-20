@@ -113,7 +113,7 @@ scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5,
 
 # estimate cv scrnp of random forest with nested 
 # cross-validation for nuisance parameter estimation
-\dontrun{
+\donttest{
 scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
                        nested_cv = TRUE, 
                        learner = "randomforest_wrapper")
