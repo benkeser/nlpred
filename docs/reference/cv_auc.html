@@ -249,11 +249,9 @@ option below.</p>
 <span class='no'>cv_auc_ests</span> <span class='kw'>&lt;-</span> <span class='fu'>cv_auc</span>(<span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>learner</span> <span class='kw'>=</span> <span class='st'>"glm_wrapper"</span>)
 
 <span class='co'># get cv auc estimates for random forest</span>
-<span class='co'># using nested cross-validation for nuisance parameter estimation</span></div><span class='co'># NOT RUN {</span>
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>cv_auc</span>(<span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+<span class='co'># using nested cross-validation for nuisance parameter estimation</span></div><div class='input'><span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>cv_auc</span>(<span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y</span>, <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>X</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>,
               <span class='kw'>learner</span> <span class='kw'>=</span> <span class='st'>"randomforest_wrapper"</span>,
-              <span class='kw'>nested_cv</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></pre>
+              <span class='kw'>nested_cv</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
