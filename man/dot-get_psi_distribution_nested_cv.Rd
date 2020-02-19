@@ -4,8 +4,7 @@
 \alias{.get_psi_distribution_nested_cv}
 \title{Compute the conditional (given Y = y) CV-estimated distribution of psi}
 \usage{
-.get_psi_distribution_nested_cv(x, y, prediction_list, folds,
-  epsilon = 0)
+.get_psi_distribution_nested_cv(x, y, prediction_list, folds, epsilon = 0)
 }
 \arguments{
 \item{x}{The outer validation fold withheld}

@@ -4,8 +4,7 @@
 \alias{lpo_auc}
 \title{Compute the leave-pair-out cross-validation estimator of AUC.}
 \usage{
-lpo_auc(Y, X, learner = "glm_wrapper", max_pairs = NULL,
-  parallel = FALSE, ...)
+lpo_auc(Y, X, learner = "glm_wrapper", max_pairs = NULL, parallel = FALSE, ...)
 }
 \arguments{
 \item{Y}{A numeric vector of outcomes, assume to equal \code{0} or \code{1}.}

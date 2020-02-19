@@ -4,11 +4,20 @@
 \alias{ranger_wrapper}
 \title{Wrapper for fitting a random forest using \link[ranger]{ranger}.}
 \usage{
-ranger_wrapper(train, test, num.trees = 500,
-  mtry = floor(sqrt(ncol(train$X))), write.forest = TRUE,
-  probability = TRUE, min.node.size = 5, replace = TRUE,
-  sample.fraction = ifelse(replace, 1, 0.632), num.threads = 1,
-  verbose = TRUE, ...)
+ranger_wrapper(
+  train,
+  test,
+  num.trees = 500,
+  mtry = floor(sqrt(ncol(train$X))),
+  write.forest = TRUE,
+  probability = TRUE,
+  min.node.size = 5,
+  replace = TRUE,
+  sample.fraction = ifelse(replace, 1, 0.632),
+  num.threads = 1,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{train}{A list with named objects \code{Y} and \code{X} (see description).}

@@ -4,8 +4,16 @@
 \alias{.get_predictions}
 \title{Worker function for fitting prediction functions (possibly in parallel)}
 \usage{
-.get_predictions(learner, Y, X, K = 10, folds, parallel,
-  nested_cv = FALSE, nested_K = K - 1)
+.get_predictions(
+  learner,
+  Y,
+  X,
+  K = 10,
+  folds,
+  parallel,
+  nested_cv = FALSE,
+  nested_K = K - 1
+)
 }
 \arguments{
 \item{learner}{The wrapper to use}

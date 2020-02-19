@@ -84,7 +84,7 @@ superlearner_wrapper <- function(train, test,
 #' @param nlambda See \link[glmnet]{glmnet} for further description.  
 #' @param use_min See \link[glmnet]{glmnet} for further description. 
 #' @param loss See \link[glmnet]{glmnet} for further description. 
-#' @param ... Other options (passed to \code{SuperLearner}) 
+#' @param ... Other options (passed to \code{cv.glmnet}) 
 #' @return A list with named objects (see description). 
 #' @export
 #' @importFrom stats model.matrix
@@ -106,14 +106,14 @@ superlearner_wrapper <- function(train, test,
 glmnet_wrapper <- function(train, test,
                            alpha = 1, nfolds = 5, 
                            nlambda = 100, use_min = TRUE, 
-                           loss = "deviance"){
+                           loss = "deviance", ...){
   
   design_train_X <- model.matrix(~ -1 + ., train$X)
   design_test_X <- model.matrix(~ -1 + ., test$X)
 
   glmnet_fit <- glmnet::cv.glmnet(x = design_train_X, y = train$Y, 
         lambda = NULL, type.measure = loss, nfolds = nfolds, 
-        family = "binomial", alpha = alpha, nlambda = nlambda)
+        family = "binomial", alpha = alpha, nlambda = nlambda, ...)
 
   test_pred <- predict(glmnet_fit, newx = design_test_X, type = "response", s = ifelse(use_min, 
       "lambda.min", "lambda.1se"))
@@ -241,7 +241,7 @@ ranger_wrapper <- function(train, test,
         replace = replace, sample.fraction = sample.fraction, 
         write.forest = write.forest, probability = probability, 
         num.threads = num.threads, 
-        verbose = verbose)
+        verbose = verbose, ...)
     pred_data <- rbind(test$X, train$X)
     all_psi <- predict(fit, data = pred_data)$predictions[, "1"]
     ntest <- length(test$Y)

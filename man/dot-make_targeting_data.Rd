@@ -4,8 +4,15 @@
 \alias{.make_targeting_data}
 \title{Helper function for making data set in proper format for CVTMLE}
 \usage{
-.make_targeting_data(x, prediction_list, quantile_list, density_list,
-  folds, nested_cv = FALSE, gn)
+.make_targeting_data(
+  x,
+  prediction_list,
+  quantile_list,
+  density_list,
+  folds,
+  nested_cv = FALSE,
+  gn
+)
 }
 \arguments{
 \item{x}{A numeric identifier of which entry in \code{prediction_list} to operate on.}

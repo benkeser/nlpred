@@ -5,8 +5,13 @@
 \title{Compute the targeted conditional cumulative distribution of the learner at a point
 where the initial distribution is based on cross validation}
 \usage{
-F_nBn_star_nested_cv(psi_x, y, inner_valid_prediction_and_y_list,
-  epsilon = 0, tol = 0.001)
+F_nBn_star_nested_cv(
+  psi_x,
+  y,
+  inner_valid_prediction_and_y_list,
+  epsilon = 0,
+  tol = 0.001
+)
 }
 \arguments{
 \item{psi_x}{Value to compute conditional (on Y=y) cdf of learner}

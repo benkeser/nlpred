@@ -5,8 +5,16 @@
 \title{Worker function to make long form data set needed for
 CVTMLE targeting step when nested cv is used}
 \usage{
-.make_long_data_nested_cv(x, prediction_list, folds, gn, update = FALSE,
-  epsilon_0 = 0, epsilon_1 = 0, tol = 0.001)
+.make_long_data_nested_cv(
+  x,
+  prediction_list,
+  folds,
+  gn,
+  update = FALSE,
+  epsilon_0 = 0,
+  epsilon_1 = 0,
+  tol = 0.001
+)
 }
 \arguments{
 \item{x}{The outer validation fold}

@@ -4,9 +4,18 @@
 \alias{xgboost_wrapper}
 \title{Wrapper for fitting eXtreme gradient boosting via \code{xgboost}}
 \usage{
-xgboost_wrapper(test, train, ntrees = 500, max_depth = 4,
-  shrinkage = 0.1, minobspernode = 2, params = list(), nthread = 1,
-  verbose = 0, save_period = NULL)
+xgboost_wrapper(
+  test,
+  train,
+  ntrees = 500,
+  max_depth = 4,
+  shrinkage = 0.1,
+  minobspernode = 2,
+  params = list(),
+  nthread = 1,
+  verbose = 0,
+  save_period = NULL
+)
 }
 \arguments{
 \item{test}{A list with named objects \code{Y} and \code{X} (see description).}

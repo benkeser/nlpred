@@ -5,8 +5,14 @@
 \title{Worker function to make long form data set needed for
 CVTMLE targeting step}
 \usage{
-.make_long_data(x, gn, update = FALSE, epsilon_0 = 0, epsilon_1 = 0,
-  tol = 0.001)
+.make_long_data(
+  x,
+  gn,
+  update = FALSE,
+  epsilon_0 = 0,
+  epsilon_1 = 0,
+  tol = 0.001
+)
 }
 \arguments{
 \item{x}{An entry in the "predictions list" that has certain

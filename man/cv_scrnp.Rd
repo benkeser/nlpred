@@ -4,10 +4,21 @@
 \alias{cv_scrnp}
 \title{Estimates of CV SCNP}
 \usage{
-cv_scrnp(Y, X, K = 10, sens = 0.95, learner = "glm_wrapper",
-  nested_cv = TRUE, nested_K = K - 1, parallel = FALSE,
-  max_cvtmle_iter = 10, cvtmle_ictol = 1/length(Y),
-  quantile_type = 8, prediction_list = NULL, ...)
+cv_scrnp(
+  Y,
+  X,
+  K = 10,
+  sens = 0.95,
+  learner = "glm_wrapper",
+  nested_cv = TRUE,
+  nested_K = K - 1,
+  parallel = FALSE,
+  max_cvtmle_iter = 10,
+  cvtmle_ictol = 1/length(Y),
+  quantile_type = 8,
+  prediction_list = NULL,
+  ...
+)
 }
 \arguments{
 \item{Y}{A numeric vector of outcomes, assume to equal \code{0} or \code{1}.}

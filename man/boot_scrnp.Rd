@@ -4,8 +4,15 @@
 \alias{boot_scrnp}
 \title{Compute the bootstrap-corrected estimator of SCRNP.}
 \usage{
-boot_scrnp(Y, X, B = 200, learner = "glm_wrapper", sens = 0.95,
-  correct632 = FALSE, ...)
+boot_scrnp(
+  Y,
+  X,
+  B = 200,
+  learner = "glm_wrapper",
+  sens = 0.95,
+  correct632 = FALSE,
+  ...
+)
 }
 \arguments{
 \item{Y}{A numeric vector of outcomes, assume to equal \code{0} or \code{1}.}

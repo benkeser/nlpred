@@ -4,8 +4,13 @@
 \alias{ci.cvAUC_withIC}
 \title{ci.cvAUC_withIC}
 \usage{
-ci.cvAUC_withIC(predictions, labels, label.ordering = NULL,
-  folds = NULL, confidence = 0.95)
+ci.cvAUC_withIC(
+  predictions,
+  labels,
+  label.ordering = NULL,
+  folds = NULL,
+  confidence = 0.95
+)
 }
 \arguments{
 \item{predictions}{A vector, matrix, list, or data frame containing the predictions.}

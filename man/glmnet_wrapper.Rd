@@ -4,8 +4,16 @@
 \alias{glmnet_wrapper}
 \title{Wrapper for fitting a lasso using package \code{glmnet}.}
 \usage{
-glmnet_wrapper(train, test, alpha = 1, nfolds = 5, nlambda = 100,
-  use_min = TRUE, loss = "deviance")
+glmnet_wrapper(
+  train,
+  test,
+  alpha = 1,
+  nfolds = 5,
+  nlambda = 100,
+  use_min = TRUE,
+  loss = "deviance",
+  ...
+)
 }
 \arguments{
 \item{train}{A list with named objects \code{Y} and \code{X} (see description).}
@@ -22,7 +30,7 @@ glmnet_wrapper(train, test, alpha = 1, nfolds = 5, nlambda = 100,
 
 \item{loss}{See \link[glmnet]{glmnet} for further description.}
 
-\item{...}{Other options (passed to \code{SuperLearner})}
+\item{...}{Other options (passed to \code{cv.glmnet})}
 }
 \value{
 A list with named objects (see description).

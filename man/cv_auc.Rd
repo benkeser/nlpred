@@ -4,9 +4,19 @@
 \alias{cv_auc}
 \title{Estimates of CVAUC}
 \usage{
-cv_auc(Y, X, K = 10, learner = "glm_wrapper", nested_cv = TRUE,
-  nested_K = K - 1, parallel = FALSE, max_cvtmle_iter = 10,
-  cvtmle_ictol = 1/length(Y), prediction_list = NULL, ...)
+cv_auc(
+  Y,
+  X,
+  K = 10,
+  learner = "glm_wrapper",
+  nested_cv = TRUE,
+  nested_K = K - 1,
+  parallel = FALSE,
+  max_cvtmle_iter = 10,
+  cvtmle_ictol = 1/length(Y),
+  prediction_list = NULL,
+  ...
+)
 }
 \arguments{
 \item{Y}{A numeric vector of outcomes, assume to equal \code{0} or \code{1}.}
@@ -83,7 +93,7 @@ is commonly used: data are partitioned into K distinct groups and the
 prediction algorithm is developed using K-1 of these groups. In standard K-fold
 cross-validation, the AUC of this prediction algorithm is estimated using
 the remaining fold. This can be problematic when the number of observations is 
-small or the number of cross-validation folds is large.
+small or the number of cross-validation folds is large. 
 
 Here, we estimate relevant nuisance parameters in the training sample and use
 the validation sample to perform some form of bias correction -- either through

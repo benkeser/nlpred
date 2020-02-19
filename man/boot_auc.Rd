@@ -4,8 +4,7 @@
 \alias{boot_auc}
 \title{Compute the bootstrap-corrected estimator of AUC.}
 \usage{
-boot_auc(Y, X, B = 500, learner = "glm_wrapper", correct632 = FALSE,
-  ...)
+boot_auc(Y, X, B = 500, learner = "glm_wrapper", correct632 = FALSE, ...)
 }
 \arguments{
 \item{Y}{A numeric vector of outcomes, assume to equal \code{0} or \code{1}.}

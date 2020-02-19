@@ -4,9 +4,16 @@
 \alias{randomforest_wrapper}
 \title{Wrapper for fitting a random forest using \link[randomForest]{randomForest}.}
 \usage{
-randomforest_wrapper(train, test, mtry = floor(sqrt(ncol(train$X))),
-  ntree = 1000, nodesize = 1, maxnodes = NULL, importance = FALSE,
-  ...)
+randomforest_wrapper(
+  train,
+  test,
+  mtry = floor(sqrt(ncol(train$X))),
+  ntree = 1000,
+  nodesize = 1,
+  maxnodes = NULL,
+  importance = FALSE,
+  ...
+)
 }
 \arguments{
 \item{train}{A list with named objects \code{Y} and \code{X} (see description).}

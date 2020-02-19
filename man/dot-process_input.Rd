@@ -4,8 +4,14 @@
 \alias{.process_input}
 \title{Unexported function from cvAUC package}
 \usage{
-.process_input(predictions, labels, label.ordering = NULL,
-  folds = NULL, ids = NULL, confidence = NULL)
+.process_input(
+  predictions,
+  labels,
+  label.ordering = NULL,
+  folds = NULL,
+  ids = NULL,
+  confidence = NULL
+)
 }
 \arguments{
 \item{predictions}{A vector, matrix, list, or data frame containing the predictions.}

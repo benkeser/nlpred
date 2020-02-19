@@ -19,49 +19,49 @@ The CTGs were also classified by three expert obstetricians and a consensus clas
 
 Attribute Information:
 
-LB - FHR baseline (beats per minute)
+LB - FHR baseline (beats per minute) 
 
-AC - # of accelerations per second
+AC - # of accelerations per second 
 
-FM - # of fetal movements per second
+FM - # of fetal movements per second 
 
-UC - # of uterine contractions per second
+UC - # of uterine contractions per second 
 
-DL - # of light decelerations per second
+DL - # of light decelerations per second 
 
-DS - # of severe decelerations per second
+DS - # of severe decelerations per second 
 
-DP - # of prolongued decelerations per second
+DP - # of prolongued decelerations per second 
 
-ASTV - percentage of time with abnormal short term variability
+ASTV - percentage of time with abnormal short term variability 
 
-MSTV - mean value of short term variability
+MSTV - mean value of short term variability 
 
-ALTV - percentage of time with abnormal long term variability
+ALTV - percentage of time with abnormal long term variability 
 
-MLTV - mean value of long term variability
+MLTV - mean value of long term variability 
 
-Width - width of FHR histogram
+Width - width of FHR histogram 
 
-Min - minimum of FHR histogram
+Min - minimum of FHR histogram 
 
-Max - Maximum of FHR histogram
+Max - Maximum of FHR histogram 
 
-Nmax - # of histogram peaks
+Nmax - # of histogram peaks 
 
-Nzeros - # of histogram zeros
+Nzeros - # of histogram zeros 
 
-Mode - histogram mode
+Mode - histogram mode 
 
-Mean - histogram mean
+Mean - histogram mean 
 
-Median - histogram median
+Median - histogram median 
 
-Variance - histogram variance
+Variance - histogram variance 
 
-Tendency - histogram tendency
+Tendency - histogram tendency 
 
-CLASS - FHR pattern class code (1 to 10)
+CLASS - FHR pattern class code (1 to 10) 
 
 NSP - fetal state class code (N=normal; S=suspect; P=pathologic)
 }

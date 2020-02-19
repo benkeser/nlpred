@@ -4,9 +4,18 @@
 \alias{.get_density}
 \title{Function to estimate density needed to evaluate standard errors.}
 \usage{
-.get_density(x, c0, bounded_kernel = FALSE, x_name = "train_pred",
-  y_name = "train_y", nested_cv = FALSE, prediction_list = NULL,
-  folds = NULL, maxDens = 1000, ...)
+.get_density(
+  x,
+  c0,
+  bounded_kernel = FALSE,
+  x_name = "train_pred",
+  y_name = "train_y",
+  nested_cv = FALSE,
+  prediction_list = NULL,
+  folds = NULL,
+  maxDens = 1000,
+  ...
+)
 }
 \arguments{
 \item{x}{An entry in prediction_list.}
