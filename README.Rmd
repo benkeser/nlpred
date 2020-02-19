@@ -119,16 +119,32 @@ Interested contributors can consult our [`contribution guidelines`](https://gith
 
 ## Citation 
 
+After using the `nlpred` package, please cite the following: 
+
+	@Manual{nlpredpackage,
+	  title = {nlpred: Estimators of Non-Linear Cross-Validated Risks Optimized for Small Samples},
+	  author = {David Benkeser},
+	  note = {R package version 1.0.1}
+	}
+
+	@article{benkeser2019improved,
+	  year  = {2019},
+	  author = {Benkeser, David C and Petersen, Maya and van der Laan, Mark J},
+	  title = {Improved Small-Sample Estimation of Nonlinear Cross-Validated Prediction Metrics},
+	  journal = {Journal of the American Statistical Association},
+	  doi = {10.1080/01621459.2019.1668794}
+	}
+
 ## License
 
-&copy; 2019 [David Benkeser](http://www.benkeserstatistics.com)
+&copy; 2019- David Benkeser
 
 The contents of this repository are distributed under the MIT license. See
 below for details:
 ```
 The MIT License (MIT)
 
-Copyright (c) 2019 David C. Benkeser
+Copyright (c) 2019- David C. Benkeser
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

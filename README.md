@@ -74,6 +74,11 @@ performance in small samples.
 # load package
 library(nlpred)
 #> Loading required package: data.table
+#> Registered S3 methods overwritten by 'ggplot2':
+#>   method         from 
+#>   [.quosures     rlang
+#>   c.quosures     rlang
+#>   print.quosures rlang
 
 # turn off messages from np package
 options(np.messages=FALSE)
@@ -88,10 +93,10 @@ Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
 logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.7112994 0.03566441 0.6413985 0.7812004
-#> onestep  0.7127992 0.03621594 0.6418173 0.7837811
-#> esteq    0.7000396 0.03621594 0.6290577 0.7710216
-#> standard 0.7000213 0.03728206 0.6269498 0.7730928
+#> cvtmle   0.8204338 0.02730337 0.7669202 0.8739474
+#> onestep  0.8212162 0.02810503 0.7661314 0.8763010
+#> esteq    0.8118607 0.02810503 0.7567758 0.8669455
+#> standard 0.8110276 0.03052524 0.7511992 0.8708559
 
 # get cv auc estimates for random forest using nested 
 # cross-validation for nuisance parameter estimation. nested
@@ -102,30 +107,30 @@ rf_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5,
                          nested_cv = TRUE)
 rf_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.7317074 0.03628587 0.6605884 0.8028264
-#> onestep  0.7327262 0.03685109 0.6604994 0.8049530
-#> esteq    0.7249168 0.03685109 0.6526900 0.7971436
-#> standard 0.7351662 0.03603827 0.6645325 0.8057999
+#> cvtmle   0.8001042 0.03250963 0.7363865 0.8638219
+#> onestep  0.8007034 0.03289988 0.7362208 0.8651860
+#> esteq    0.7959679 0.03289988 0.7314853 0.8604504
+#> standard 0.8035088 0.03169928 0.7413793 0.8656382
 
 # same examples for scrnp
 logistic_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_scrnp_ests
-#>                est         se        cil       ciu
-#> cvtmle   0.1200194 0.03234325 0.05662778 0.1834110
-#> onestep  0.1106784 0.03230671 0.04735844 0.1739984
-#> esteq    0.1106784 0.03230671 0.04735844 0.1739984
-#> standard 0.1353408 0.05376489 0.02996354 0.2407180
+#>                est         se        cil      ciu
+#> cvtmle   0.1790416 0.04025296 0.10014728 0.257936
+#> onestep  0.1915809 0.04008089 0.11302376 0.270138
+#> esteq    0.1915809 0.04008089 0.11302376 0.270138
+#> standard 0.2050000 0.06089600 0.08564602 0.324354
 
 
 rf_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
                          learner = "randomforest_wrapper", 
                          nested_cv = TRUE)
 rf_cv_scrnp_ests
-#>                est         se        cil       ciu
-#> cvtmle   0.1312718 0.04157305 0.04979013 0.2127535
-#> onestep  0.1538148 0.04112673 0.07320788 0.2344217
-#> esteq    0.1538148 0.04112673 0.07320788 0.2344217
-#> standard 0.2008037 0.03481675 0.13256413 0.2690433
+#>                 est         se         cil       ciu
+#> cvtmle   0.16549372 0.05384936  0.05995091 0.2710365
+#> onestep  0.08616216 0.05446186 -0.02058113 0.1929055
+#> esteq    0.08616216 0.05446186 -0.02058113 0.1929055
+#> standard 0.21000000 0.04172416  0.12822216 0.2917778
 ```
 
 -----
@@ -147,16 +152,32 @@ prior to submitting a pull request.
 
 ## Citation
 
+After using the `nlpred` package, please cite the following:
+
+    @Manual{nlpredpackage,
+      title = {nlpred: Estimators of Non-Linear Cross-Validated Risks Optimized for Small Samples},
+      author = {David Benkeser},
+      note = {R package version 1.0.1}
+    }
+    
+    @article{benkeser2019improved,
+      year  = {2019},
+      author = {Benkeser, David C and Petersen, Maya and van der Laan, Mark J},
+      title = {Improved Small-Sample Estimation of Nonlinear Cross-Validated Prediction Metrics},
+      journal = {Journal of the American Statistical Association},
+      doi = {10.1080/01621459.2019.1668794}
+    }
+
 ## License
 
-© 2019 [David Benkeser](http://www.benkeserstatistics.com)
+© 2019- David Benkeser
 
 The contents of this repository are distributed under the MIT license.
 See below for details:
 
     The MIT License (MIT)
     
-    Copyright (c) 2019 David C. Benkeser
+    Copyright (c) 2019- David C. Benkeser
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
