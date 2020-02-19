@@ -73,7 +73,7 @@ of test$Y." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nlpred</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -140,8 +140,16 @@ of <code>test$Y</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>glmnet_wrapper</span>(<span class='no'>train</span>, <span class='no'>test</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>nlambda</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>use_min</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"deviance"</span>)</pre>
+    <pre class="usage"><span class='fu'>glmnet_wrapper</span>(
+  <span class='no'>train</span>,
+  <span class='no'>test</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>nlambda</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>use_min</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='st'>"deviance"</span>,
+  <span class='no'>...</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,7 +184,7 @@ of <code>test$Y</code>.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other options (passed to <code>SuperLearner</code>)</p></td>
+      <td><p>Other options (passed to <code>cv.glmnet</code>)</p></td>
     </tr>
     </table>
     
