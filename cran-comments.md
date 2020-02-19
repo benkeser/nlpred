@@ -1,5 +1,5 @@
 ## Test environments
-* Local: macOS High Sierra, R 3.5.3, 3.6.0
+* Local: macOS High Sierra, R 3.5.3, 3.6.1
 * Travis-CI: Ubuntu 16.04, R 3.6.1
 * Appveyor: Windows Server 2012 R2 x64, R 3.6.1
 * RHub: Windows Server 2008 R2 SP1, R-devel, 32/64 bit
@@ -11,9 +11,6 @@
 Nothing to report.
 
 ## Additional Notes
-Re-Re-submission of package, version 1.0.0
+Submission of package, version 1.0.1.
 
-### Comments from initial submission
-> cv_auc.Rd and cv_scrnp.Rd still have \dontrun.
-
-These have been changed to \donttest. 
+Documentation has been fixed to prevent [warnings](https://cran.r-project.org/web/checks/check_results_nlpred.html).
