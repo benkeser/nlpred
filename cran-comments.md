@@ -14,3 +14,5 @@ Nothing to report.
 Submission of package, version 1.0.1.
 
 Documentation has been fixed to prevent [warnings](https://cran.r-project.org/web/checks/check_results_nlpred.html).
+
+Link in README changed to stable CRAN link. 
