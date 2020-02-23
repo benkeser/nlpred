@@ -45,7 +45,7 @@ install.packages("nlpred")
 ```
 
 You can install the current release of `nlpred` from GitHub via
-[`devtools`](https://www.rstudio.com/products/rpackages/devtools/) with:
+[`devtools`](https://CRAN.R-project.org/package=devtools) with:
 
 ``` r
 devtools::install_github("benkeser/nlpred")
@@ -74,11 +74,6 @@ performance in small samples.
 # load package
 library(nlpred)
 #> Loading required package: data.table
-#> Registered S3 methods overwritten by 'ggplot2':
-#>   method         from 
-#>   [.quosures     rlang
-#>   c.quosures     rlang
-#>   print.quosures rlang
 
 # turn off messages from np package
 options(np.messages=FALSE)
@@ -93,10 +88,10 @@ Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
 logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.8204338 0.02730337 0.7669202 0.8739474
-#> onestep  0.8212162 0.02810503 0.7661314 0.8763010
-#> esteq    0.8118607 0.02810503 0.7567758 0.8669455
-#> standard 0.8110276 0.03052524 0.7511992 0.8708559
+#> cvtmle   0.7598522 0.03223410 0.6966745 0.8230299
+#> onestep  0.7601000 0.03252870 0.6963449 0.8238551
+#> esteq    0.7557129 0.03252870 0.6919578 0.8194680
+#> standard 0.7660940 0.03348094 0.7004726 0.8317154
 
 # get cv auc estimates for random forest using nested 
 # cross-validation for nuisance parameter estimation. nested
@@ -107,19 +102,19 @@ rf_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5,
                          nested_cv = TRUE)
 rf_cv_auc_ests
 #>                est         se       cil       ciu
-#> cvtmle   0.8001042 0.03250963 0.7363865 0.8638219
-#> onestep  0.8007034 0.03289988 0.7362208 0.8651860
-#> esteq    0.7959679 0.03289988 0.7314853 0.8604504
-#> standard 0.8035088 0.03169928 0.7413793 0.8656382
+#> cvtmle   0.7305404 0.03606462 0.6598550 0.8012257
+#> onestep  0.7308869 0.03625171 0.6598349 0.8019390
+#> esteq    0.7281639 0.03625171 0.6571118 0.7992159
+#> standard 0.7435551 0.03553040 0.6739168 0.8131934
 
 # same examples for scrnp
 logistic_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, learner = "glm_wrapper")
 logistic_cv_scrnp_ests
-#>                est         se        cil      ciu
-#> cvtmle   0.1790416 0.04025296 0.10014728 0.257936
-#> onestep  0.1915809 0.04008089 0.11302376 0.270138
-#> esteq    0.1915809 0.04008089 0.11302376 0.270138
-#> standard 0.2050000 0.06089600 0.08564602 0.324354
+#>                est         se        cil       ciu
+#> cvtmle   0.1099379 0.03873987 0.03400918 0.1858667
+#> onestep  0.1237150 0.03857579 0.04810785 0.1993222
+#> esteq    0.1237150 0.03857579 0.04810785 0.1993222
+#> standard 0.1612586 0.03851825 0.08576425 0.2367530
 
 
 rf_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5, 
@@ -127,10 +122,10 @@ rf_cv_scrnp_ests <- cv_scrnp(Y = Y, X = X, K = 5,
                          nested_cv = TRUE)
 rf_cv_scrnp_ests
 #>                 est         se         cil       ciu
-#> cvtmle   0.16549372 0.05384936  0.05995091 0.2710365
-#> onestep  0.08616216 0.05446186 -0.02058113 0.1929055
-#> esteq    0.08616216 0.05446186 -0.02058113 0.1929055
-#> standard 0.21000000 0.04172416  0.12822216 0.2917778
+#> cvtmle   0.09331934 0.02851627 0.037428470 0.1492102
+#> onestep  0.09642105 0.02851279 0.040536999 0.1523051
+#> esteq    0.09642105 0.02851279 0.040536999 0.1523051
+#> standard 0.08475865 0.04111922 0.004166465 0.1653508
 ```
 
 -----

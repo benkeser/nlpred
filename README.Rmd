@@ -45,7 +45,7 @@ install.packages("nlpred")
 ```
 
 You can install the current release of `nlpred` from GitHub via
-[`devtools`](https://www.rstudio.com/products/rpackages/devtools/) with:
+[`devtools`](https://CRAN.R-project.org/package=devtools) with:
 
 ```{r gh-installation, eval = FALSE}
 devtools::install_github("benkeser/nlpred")
