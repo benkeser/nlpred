@@ -46,9 +46,9 @@ X <- data.frame(matrix(rnorm(n*p), nrow = n, ncol = p))
 Y <- rbinom(n, 1, plogis(X[,1] + X[,10]))
 
 # get cv auc estimates for logistic regression
-logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, 
+logistic_cv_auc_ests <- cv_auc(Y = Y, X = X, K = 5, nested_K = 5,
                                learner = "glm_wrapper",
-                               nested_cv = FALSE)
+                               nested_cv = TRUE)
 logistic_cv_auc_ests
 ```
 

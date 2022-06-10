@@ -354,7 +354,6 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
 #' @param ... Other options (not currently used)
 #' @importFrom np npudensbw npudens
 #' @importFrom stats predict
-#' @importFrom bde bde
 .get_density <- function(x, c0, bounded_kernel = FALSE,
                         x_name = "train_pred", 
                         y_name = "train_y",
@@ -381,15 +380,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
         f_0_c0 <- maxDens
       }
     }else{
-      # density given Y = 1
-      fit_1 <- bde::bde(dataPoints = x[[x_name]][x$train_y == 1],
-                      dataPointsCache = c0,
-                      estimator = "betakernel")
-      f_10_c0 <- fit_1@densityCache
-      fit_all <- bde::bde(dataPoints = x[[x_name]],
-                      dataPointsCache = c0,
-                      estimator = "betakernel")
-      f_0_c0 <- fit_all@densityCache
+      stop("bounded density estimation removed from package")
     }
   }else{
     # find all V-1 fold CV fits with this x in them. These will be the inner
@@ -414,16 +405,7 @@ cv_scrnp <- function(Y, X, K = 10, sens = 0.95,
     all_y <- Reduce("c", lapply(inner_valid_prediction_and_y_list, "[[",
                                    "inner_test_y"))
     if(bounded_kernel){
-      # TO DO: Implement CV bandwidth selection for bounded kernels
-      # density given Y = 1
-      fit_1 <- bde::bde(dataPoints = all_pred[all_y == 1],
-                      dataPointsCache = c0,
-                      estimator = "betakernel")
-      f_10_c0 <- fit_1@densityCache
-      fit_all <- bde::bde(dataPoints = all_pred,
-                      dataPointsCache = c0,
-                      estimator = "betakernel")
-      f_0_c0 <- fit_all@densityCache
+      stop("bounded density estimation removed from package")
     }else{
       if(length(unique(all_pred[all_y == 1])) > 1){
         # density given y = 1
